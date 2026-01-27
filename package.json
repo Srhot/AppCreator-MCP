@@ -1,0 +1,33 @@
+{
+  "name": "appcreator-mcp-server",
+  "version": "2.1.0",
+  "description": "AppCreator - Complete AI Software Factory MCP Server",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && chmod +x build/index.js",
+    "dev": "tsx src/index.ts",
+    "start": "node build/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "ai",
+    "appcreator",
+    "software-factory",
+    "notebooklm",
+    "a2ui"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.69.0",
+    "@google/generative-ai": "^0.24.1",
+    "@modelcontextprotocol/sdk": "^1.22.0",
+    "openai": "^6.9.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}
