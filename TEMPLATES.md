@@ -1,8 +1,8 @@
-# DevForge POML Templates Documentation
+# AppCreator POML Templates Documentation
 
 ## Overview
 
-DevForge includes a comprehensive POML template system that ensures **context is NEVER lost** during development. These templates provide structured project manifests with all necessary context preservation mechanisms.
+AppCreator includes a comprehensive POML template system that ensures **context is NEVER lost** during development. These templates provide structured project manifests with all necessary context preservation mechanisms.
 
 ## Template Files
 
@@ -448,7 +448,7 @@ src/templates/poml/
 
 ---
 
-## Integration with DevForge Server
+## Integration with AppCreator Server
 
 The main server (`src/index.ts`) will integrate these templates:
 

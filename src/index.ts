@@ -49,10 +49,10 @@ const masterOrchestrator = new MasterOrchestrator(aiAdapter);
 // Create Smart Workflow Module (NEW!)
 const smartWorkflow = new SmartWorkflowModule(aiAdapter);
 
-console.log(`🤖 AppCreator MCP Server - Complete AI Software Factory`);
-console.log(`📡 AI Provider: ${aiProvider}`);
-console.log(`🎯 Model: ${aiModel || AdapterFactory.getDefaultModel(aiProvider)}`);
-console.log(`✨ Features: Decision Matrix, Spec-Kit, POML, API Testing, BDD, Context Preservation`);
+console.error(`🤖 AppCreator MCP Server - Complete AI Software Factory`);
+console.error(`📡 AI Provider: ${aiProvider}`);
+console.error(`🎯 Model: ${aiModel || AdapterFactory.getDefaultModel(aiProvider)}`);
+console.error(`✨ Features: Decision Matrix, Spec-Kit, POML, API Testing, BDD, Context Preservation`);
 
 // AppCreator Server - Complete Workflow Manager
 class AppCreatorServer {
@@ -495,7 +495,7 @@ class AppCreatorServer {
   private async startProject(args: any) {
     const { project_name, project_type, description, requirements } = args;
 
-    console.log(`\n🚀 PHASE 1: Starting project "${project_name}"`);
+    console.error(`\n🚀 PHASE 1: Starting project "${project_name}"`);
 
     const result = await masterOrchestrator.startProject(
       project_name,
@@ -534,7 +534,7 @@ Type: ${project_type}
 📋 Decision Matrix Questions (${result.decisionMatrix.questions.length} questions):
 
 ${result.decisionMatrix.questions.map((q: any, i: number) =>
-  `${i + 1}. [${q.category.toUpperCase()}] ${q.question}
+            `${i + 1}. [${q.category.toUpperCase()}] ${q.question}
    Type: ${q.type}
    ${q.options ? `Options: ${q.options.join(', ')}` : ''}
 `).join('\n')}
@@ -567,7 +567,7 @@ Example:
       throw new Error(`Project not started. Call start_project first.`);
     }
 
-    console.log(`\n📚 PHASE 2: Generating Spec-Kit for "${project_name}"`);
+    console.error(`\n📚 PHASE 2: Generating Spec-Kit for "${project_name}"`);
 
     // Complete decision matrix with answers
     const completedMatrix = {
@@ -609,15 +609,15 @@ ${result.files.map(f => `  ✓ ${f}`).join('\n')}
 
 📋 Task Categories:
 ${Object.entries(
-  result.specKit.tasks.reduce((acc: any, task: any) => {
-    acc[task.type] = (acc[task.type] || 0) + 1;
-    return acc;
-  }, {})
-).map(([type, count]) => `  • ${type}: ${count} tasks`).join('\n')}
+            result.specKit.tasks.reduce((acc: any, task: any) => {
+              acc[task.type] = (acc[task.type] || 0) + 1;
+              return acc;
+            }, {})
+          ).map(([type, count]) => `  • ${type}: ${count} tasks`).join('\n')}
 
 💾 Context Preservation:
   • POML file created: PROJECT.poml
-  • State saved: .devforge/state.json
+  • State saved: .appcreator/state.json
   • Checkpoint system active (every 20-25 tasks)
 
 🎯 NEXT STEPS:
@@ -642,7 +642,7 @@ ${Object.entries(
       throw new Error(`Spec-Kit not generated. Call approve_architecture first.`);
     }
 
-    console.log(`\n🧪 PHASE 3: Generating API Tests for "${project_name}"`);
+    console.error(`\n🧪 PHASE 3: Generating API Tests for "${project_name}"`);
 
     const projectPath = `C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-projects\\${project_name}`;
     const result = await masterOrchestrator.generateAPITests(
@@ -752,7 +752,7 @@ After answering, call "generate_frontend_prompt" with your answers in this forma
       throw new Error(`Spec-Kit not generated`);
     }
 
-    console.log(`\n🎨 PHASE 4: Generating Frontend Prompt for "${project_name}"`);
+    console.error(`\n🎨 PHASE 4: Generating Frontend Prompt for "${project_name}"`);
 
     const projectPath = `C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-projects\\${project_name}`;
     const result = await masterOrchestrator.generateFrontendPrompt(
@@ -809,7 +809,7 @@ After answering, call "generate_frontend_prompt" with your answers in this forma
       throw new Error(`Spec-Kit not generated`);
     }
 
-    console.log(`\n🥒 PHASE 5: Generating BDD Tests for "${project_name}"`);
+    console.error(`\n🥒 PHASE 5: Generating BDD Tests for "${project_name}"`);
 
     const projectPath = `C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-projects\\${project_name}`;
     const result = await masterOrchestrator.generateBDDTests(
@@ -870,7 +870,7 @@ ${result.configPaths.map(p => `  ✓ ${p}`).join('\n')}
       throw new Error(`Project not found or Spec-Kit not generated`);
     }
 
-    console.log(`\n💾 Creating Checkpoint for "${project_name}"`);
+    console.error(`\n💾 Creating Checkpoint for "${project_name}"`);
 
     const projectPath = `C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-projects\\${project_name}`;
     const result = await masterOrchestrator.createCheckpoint(
@@ -897,8 +897,8 @@ ${result.configPaths.map(p => `  ✓ ${p}`).join('\n')}
 
 💾 Saved Files:
   ✓ PROJECT.poml (updated)
-  ✓ .devforge/state.json
-  ✓ .devforge/continuation-prompt.txt
+  ✓ .appcreator/state.json
+  ✓ .appcreator/continuation-prompt.txt
 
 🔄 Context Preservation:
   • Checkpoint ID: ${result.checkpoint.id}
@@ -908,7 +908,7 @@ ${result.configPaths.map(p => `  ✓ ${p}`).join('\n')}
 📝 Continuation Prompt:
 ${result.continuationPrompt.substring(0, 500)}...
 
-(Full prompt saved to .devforge/continuation-prompt.txt)
+(Full prompt saved to .appcreator/continuation-prompt.txt)
 
 ✅ Safe to continue or lose context - all progress preserved!`,
         },
@@ -974,7 +974,7 @@ ${result.continuationPrompt.substring(0, 500)}...
 
     // Auto-checkpoint if 20+ tasks completed
     if (tasksSinceCheckpoint >= 20) {
-      console.log(`\n⚠️  Auto-checkpoint triggered (${tasksSinceCheckpoint} tasks since last checkpoint)`);
+      console.error(`\n⚠️  Auto-checkpoint triggered (${tasksSinceCheckpoint} tasks since last checkpoint)`);
 
       const projectPath = `C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-projects\\${project_name}`;
       const result = await masterOrchestrator.createCheckpoint(
@@ -1019,8 +1019,8 @@ ${tasksSinceCheckpoint >= 15 ? '⚠️  Checkpoint recommended soon (20 tasks tr
   private async startProjectWithNotebook(args: any) {
     const { project_name, project_type, notebook_name, additional_requirements = [] } = args;
 
-    console.log(`\n📚 PHASE 1 (NotebookLM): Starting project "${project_name}"`);
-    console.log(`   Using NotebookLM: ${notebook_name}`);
+    console.error(`\n📚 PHASE 1 (NotebookLM): Starting project "${project_name}"`);
+    console.error(`   Using NotebookLM: ${notebook_name}`);
 
     const result = await masterOrchestrator.startProjectWithNotebook(
       project_name,
@@ -1065,7 +1065,7 @@ NotebookLM Source: ${notebook_name}
 📋 Decision Matrix Questions (${result.decisionMatrix.questions.length} questions):
 
 ${result.decisionMatrix.questions.map((q: any, i: number) =>
-  `${i + 1}. [${q.category.toUpperCase()}] ${q.question}
+            `${i + 1}. [${q.category.toUpperCase()}] ${q.question}
    Type: ${q.type}
    ${q.options ? `Options: ${q.options.join(', ')}` : ''}
 `).join('\n')}
@@ -1098,7 +1098,7 @@ Example:
       throw new Error(`Project not started. Call start_project_with_notebook first.`);
     }
 
-    console.log(`\n📚 PHASE 2 (NotebookLM): Generating enriched Spec-Kit for "${project_name}"`);
+    console.error(`\n📚 PHASE 2 (NotebookLM): Generating enriched Spec-Kit for "${project_name}"`);
 
     // Complete decision matrix
     const completedMatrix = {
@@ -1147,7 +1147,7 @@ ${result.files.map(f => `  ✓ ${f}`).join('\n')}
 
 💾 Context Preservation:
   • POML file created: PROJECT.poml
-  • State saved: .devforge/state.json
+  • State saved: .appcreator/state.json
   • Enrichment report: docs/NOTEBOOKLM_ENRICHMENT.md
 
 🎯 NEXT STEPS:
@@ -1171,7 +1171,7 @@ ${result.files.map(f => `  ✓ ${f}`).join('\n')}
       throw new Error(`Spec-Kit not generated. Call approve_architecture first.`);
     }
 
-    console.log(`\n🎨 PHASE 4 (A2UI): Generating AI-powered frontend for "${project_name}"`);
+    console.error(`\n🎨 PHASE 4 (A2UI): Generating AI-powered frontend for "${project_name}"`);
 
     const designPreferences: A2UIDesignPreferences = {
       platform,
@@ -1267,7 +1267,7 @@ ${result.files.length > 10 ? `  ... and ${result.files.length - 10} more files` 
       branches = [],
     } = args;
 
-    console.log(`\n🤖 SMART WORKFLOW: Analyzing project "${project_name}"`);
+    console.error(`\n🤖 SMART WORKFLOW: Analyzing project "${project_name}"`);
 
     const requirements: SmartProjectRequirements = {
       projectName: project_name,
@@ -1398,7 +1398,7 @@ To modify recommendations, please call "analyze_project_requirements" again with
       );
     }
 
-    console.log(`\n🚀 SMART WORKFLOW: Creating project "${project_name}" with AI recommendations`);
+    console.error(`\n🚀 SMART WORKFLOW: Creating project "${project_name}" with AI recommendations`);
 
     // Execute smart workflow
     const result = await smartWorkflow.executeWithRecommendations(
@@ -1501,7 +1501,7 @@ ${result.notebookUsed ? `  • NotebookLM Coverage: ${result.coverage?.toFixed(1
 
 💾 CONTEXT PRESERVATION:
   • POML: PROJECT.poml
-  • State: .devforge/state.json
+  • State: .appcreator/state.json
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🚀 QUICK START

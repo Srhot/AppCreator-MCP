@@ -149,7 +149,7 @@ export class ProjectGeneratorModule {
 
     this.templateEngine = new TemplateEngine();
 
-    console.log(`✅ Using AI Provider: ${this.aiAdapter.getProviderName()} (${this.aiAdapter.getModelName()})`);
+    console.error(`✅ Using AI Provider: ${this.aiAdapter.getProviderName()} (${this.aiAdapter.getModelName()})`);
   }
 
   /**
@@ -176,69 +176,69 @@ export class ProjectGeneratorModule {
       // Create a project description from requirements
       const projectDescription = requirements.slice(0, 3).join('. ') + '.';
 
-      console.log(`\n${'='.repeat(70)}`);
-      console.log(`🚀 DEVFORGE - AUTOMATED PROJECT GENERATION`);
-      console.log(`📦 Project: ${projectName}`);
-      console.log(`${'='.repeat(70)}\n`);
+      console.error(`\n${'='.repeat(70)}`);
+      console.error(`🚀 APPCREATOR - AUTOMATED PROJECT GENERATION`);
+      console.error(`📦 Project: ${projectName}`);
+      console.error(`${'='.repeat(70)}\n`);
 
       // Prepare project path
       const projectPath = join(process.cwd(), 'generated-projects', projectName);
 
       // STEP 1: Create project structure
-      console.log('📁 [1/9] Creating project structure...');
+      console.error('📁 [1/9] Creating project structure...');
       await this.createProjectStructure(projectPath);
-      console.log('    ✅ Structure created\n');
+      console.error('    ✅ Structure created\n');
 
       // STEP 2: Generate constitution
-      console.log('📜 [2/9] Generating constitution...');
+      console.error('📜 [2/9] Generating constitution...');
       const constitution = await this.generateConstitution(
         projectName,
         techStack,
         requirements,
         language
       );
-      console.log('    ✅ Constitution generated\n');
+      console.error('    ✅ Constitution generated\n');
 
       // STEP 3: Generate specification
-      console.log('📋 [3/9] Generating specification...');
+      console.error('📋 [3/9] Generating specification...');
       const specification = await this.generateSpecification(
         projectName,
         requirements,
         constitution,
         language
       );
-      console.log('    ✅ Specification generated\n');
+      console.error('    ✅ Specification generated\n');
 
       // STEP 4: Generate technical plan
-      console.log('🔧 [4/9] Generating technical plan...');
+      console.error('🔧 [4/9] Generating technical plan...');
       const technicalPlan = await this.generateTechnicalPlan(
         projectName,
         techStack,
         architecture,
         specification
       );
-      console.log('    ✅ Technical plan generated\n');
+      console.error('    ✅ Technical plan generated\n');
 
       // STEP 5: Generate tasks
-      console.log('✅ [5/9] Generating task breakdown...');
+      console.error('✅ [5/9] Generating task breakdown...');
       const tasks = await this.generateTasks(
         projectName,
         specification,
         technicalPlan
       );
-      console.log('    ✅ Tasks generated\n');
+      console.error('    ✅ Tasks generated\n');
 
       // STEP 6: Generate POML templates
-      console.log('📝 [6/9] Generating POML templates...');
+      console.error('📝 [6/9] Generating POML templates...');
       const pomlTemplates = this.generatePOMLTemplates(
         projectName,
         techStack,
         language
       );
-      console.log('    ✅ POML templates generated\n');
+      console.error('    ✅ POML templates generated\n');
 
       // STEP 7: Write all files to disk
-      console.log('💾 [7/9] Writing files to disk...');
+      console.error('💾 [7/9] Writing files to disk...');
       await this.writeAllFiles(
         projectPath,
         constitution,
@@ -247,17 +247,17 @@ export class ProjectGeneratorModule {
         tasks,
         pomlTemplates
       );
-      console.log('    ✅ Files written\n');
+      console.error('    ✅ Files written\n');
 
       // STEP 8: Create session tracking
-      console.log('📊 [8/9] Creating session tracking...');
+      console.error('📊 [8/9] Creating session tracking...');
       await this.createSessionTracking(projectPath);
-      console.log('    ✅ Session tracking initialized\n');
+      console.error('    ✅ Session tracking initialized\n');
 
       // STEP 9: Create README
-      console.log('📖 [9/9] Creating README...');
+      console.error('📖 [9/9] Creating README...');
       await this.createReadme(projectPath, projectName, projectDescription);
-      console.log('    ✅ README created\n');
+      console.error('    ✅ README created\n');
 
       // Generate and display success report
       const successReport = this.generateSuccessReport(
@@ -266,7 +266,7 @@ export class ProjectGeneratorModule {
         280 // Total tasks (could be parsed from tasks content)
       );
 
-      console.log(successReport);
+      console.error(successReport);
 
       // Return MCP response
       return {
@@ -1156,7 +1156,7 @@ Aim for 4000-5000 words.`;
   <description>
     ${projectName} - Full-stack application
     Tech Stack: ${techStack}
-    Generated by DevForge MCP Server
+    Generated by AppCreator MCP Server
   </description>
 
   <automation>
@@ -1294,39 +1294,39 @@ Aim for 4000-5000 words.`;
   ): Promise<void> {
     try {
       // 1. Write main documentation files
-      console.log('  📝 Writing documentation files...');
+      console.error('  📝 Writing documentation files...');
 
       // Write constitution.md
       const constitutionPath = join(projectPath, 'memory', 'constitution.md');
       await this.writeFileWithErrorHandling(constitutionPath, constitution);
-      console.log('     ✅ constitution.md');
+      console.error('     ✅ constitution.md');
 
       // Write SPEC.md
       const specPath = join(projectPath, 'memory', 'specification', 'SPEC.md');
       await this.writeFileWithErrorHandling(specPath, specification);
-      console.log('     ✅ SPEC.md');
+      console.error('     ✅ SPEC.md');
 
       // Write PLAN.md
       const planPath = join(projectPath, 'memory', 'planning', 'PLAN.md');
       await this.writeFileWithErrorHandling(planPath, technicalPlan);
-      console.log('     ✅ PLAN.md');
+      console.error('     ✅ PLAN.md');
 
       // Write TASKS.md
       const tasksPath = join(projectPath, 'memory', 'tasks', 'TASKS.md');
       await this.writeFileWithErrorHandling(tasksPath, tasks);
-      console.log('     ✅ TASKS.md');
+      console.error('     ✅ TASKS.md');
 
       // 2. Write POML template files
-      console.log('  📋 Writing POML templates...');
+      console.error('  📋 Writing POML templates...');
       const promptsDir = join(projectPath, 'prompts');
 
       for (const [filename, content] of Object.entries(pomlTemplates)) {
         const pomlPath = join(promptsDir, filename);
         await this.writeFileWithErrorHandling(pomlPath, content);
-        console.log(`     ✅ ${filename}`);
+        console.error(`     ✅ ${filename}`);
       }
 
-      console.log('  ✅ All files written successfully');
+      console.error('  ✅ All files written successfully');
     } catch (error) {
       console.error('  ❌ Error writing files:', error);
       throw new Error(
@@ -1372,7 +1372,7 @@ Aim for 4000-5000 words.`;
    * @param projectPath - Root path for the project
    */
   async createSessionTracking(projectPath: string): Promise<void> {
-    console.log('\n  📊 Creating session tracking files...');
+    console.error('\n  📊 Creating session tracking files...');
 
     const stateDir = join(projectPath, '.claude', 'state');
     const timestamp = new Date().toISOString();
@@ -1398,7 +1398,7 @@ Aim for 4000-5000 words.`;
       join(stateDir, 'session-progress.json'),
       JSON.stringify(sessionProgress, null, 2)
     );
-    console.log('     ✅ session-progress.json');
+    console.error('     ✅ session-progress.json');
 
     // 2. Create completed-tasks.json
     const completedTasks = {
@@ -1411,7 +1411,7 @@ Aim for 4000-5000 words.`;
       join(stateDir, 'completed-tasks.json'),
       JSON.stringify(completedTasks, null, 2)
     );
-    console.log('     ✅ completed-tasks.json');
+    console.error('     ✅ completed-tasks.json');
 
     // 3. Create checkpoint-history.json
     const checkpointHistory = {
@@ -1425,9 +1425,9 @@ Aim for 4000-5000 words.`;
       join(stateDir, 'checkpoint-history.json'),
       JSON.stringify(checkpointHistory, null, 2)
     );
-    console.log('     ✅ checkpoint-history.json');
+    console.error('     ✅ checkpoint-history.json');
 
-    console.log('  ✅ Session tracking initialized');
+    console.error('  ✅ Session tracking initialized');
   }
 
   /**
@@ -1449,13 +1449,13 @@ Aim for 4000-5000 words.`;
     projectDescription: string
   ): Promise<void> {
     try {
-      console.log('  📖 Creating README.md...');
+      console.error('  📖 Creating README.md...');
 
       const readme = `# ${projectName}
 
 ${projectDescription}
 
-**Generated by DevForge MCP Server** - An AI-powered project generator that creates complete, production-ready project specifications.
+**Generated by AppCreator MCP Server** - An AI-powered project generator that creates complete, production-ready project specifications.
 
 ---
 
@@ -1787,7 +1787,7 @@ cat memory/planning/PLAN.md | grep -i "setup"
 
 ## 🙏 Acknowledgments
 
-Generated by [DevForge MCP Server](https://github.com/yourusername/devforge-mcp-server)
+Generated by [AppCreator MCP Server](https://github.com/yourusername/appcreator-mcp-server)
 
 Built with:
 - Claude Sonnet 4 by Anthropic
@@ -1802,8 +1802,8 @@ Built with:
       const readmePath = join(projectPath, 'README.md');
       await this.writeFileWithErrorHandling(readmePath, readme);
 
-      console.log('     ✅ README.md created');
-      console.log('  ✅ README complete');
+      console.error('     ✅ README.md created');
+      console.error('  ✅ README complete');
     } catch (error: any) {
       console.error('  ❌ Error creating README:', error);
       throw new Error(`Failed to create README: ${error.message || 'Unknown error'}`);

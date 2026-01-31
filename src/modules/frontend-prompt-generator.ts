@@ -13,6 +13,7 @@
 
 import { AIAdapter } from '../adapters/ai-adapter.interface.js';
 import { Specification } from './spec-kit.js';
+import { parseJSONWithDefault } from '../utils/json-parser.js';
 
 export interface FrontendPromptConfig {
   platform: 'google-stitch' | 'lovable' | 'v0' | 'bolt' | 'generic';
@@ -181,10 +182,22 @@ Return ONLY valid JSON array:
 IMPORTANT: Return ONLY JSON array, no markdown.`;
 
     const response = await this.aiAdapter.generateText(prompt, 2000);
-    const jsonMatch = response.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) throw new Error('Failed to generate component breakdown');
+    return parseJSONWithDefault(response, this.getDefaultComponentBreakdown(spec), 'generateComponentBreakdown');
+  }
 
-    return JSON.parse(jsonMatch[0]);
+  /**
+   * Get default component breakdown when AI generation fails
+   */
+  private getDefaultComponentBreakdown(spec: Specification): { component: string; description: string; prompt: string }[] {
+    const components = [];
+    for (const req of spec.functionalRequirements.slice(0, 5)) {
+      components.push({
+        component: req.title.replace(/\s+/g, ''),
+        description: req.description,
+        prompt: `Create a ${req.title} component that ${req.description}. Include proper styling and user interaction.`
+      });
+    }
+    return components;
   }
 
   /**

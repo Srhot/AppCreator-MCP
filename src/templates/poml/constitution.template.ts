@@ -107,7 +107,7 @@ These principles MUST be followed throughout the project lifecycle.
 
 - **Enabled**: Always enabled
 - **Frequency**: Before context limits
-- **State File**: .devforge/state.json
+- **State File**: .appcreator/state.json
 - **POML**: Auto-updated on changes
 - **Continuation**: Prompts generated automatically
 

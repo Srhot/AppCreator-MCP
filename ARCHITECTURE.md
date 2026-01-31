@@ -1,4 +1,4 @@
-# DevForge Architecture
+# AppCreator Architecture
 
 ## System Overview
 
@@ -11,7 +11,7 @@
                         │ MCP Protocol (stdio)
                         │
 ┌───────────────────────▼─────────────────────────────────────┐
-│                  DevForge MCP Server                        │
+│                  AppCreator MCP Server                        │
 │                                                             │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │           Server Request Handlers                    │   │
@@ -48,7 +48,7 @@
         │  • Source files                │
         │  • Configuration files         │
         │  • POML templates             │
-        │  • State files (.devforge/)   │
+        │  • State files (.appcreator/)   │
         └───────────────────────────────┘
 ```
 
@@ -57,7 +57,7 @@
 ### 1. MCP Server Core
 
 ```typescript
-class DevForgeServer {
+class AppCreatorServer {
   private server: Server                      // MCP SDK server instance
   private projectStates: Map<string, State>   // In-memory state storage
 
@@ -112,7 +112,7 @@ Input: project_name, update_mode
 Input: project_name
   │
   ├─> Serialize project state
-  ├─> Save to .devforge/state.json
+  ├─> Save to .appcreator/state.json
   ├─> Generate continuation prompt
   ├─> Update POML
   └─> Return resume instructions
@@ -156,7 +156,7 @@ Create → Initialize State → Store in Map
    │
    ├─> Modify State (add feature, update progress)
    │
-   └─> Save State (auto-refresh) → .devforge/state.json
+   └─> Save State (auto-refresh) → .appcreator/state.json
 ```
 
 ### 4. Project Structure Generator
@@ -203,7 +203,7 @@ User Request
 Claude Desktop (MCP Client)
     │
     ▼
-DevForge Server: create_project
+AppCreator Server: create_project
     │
     ├─> Generate structure
     │   └─> { folders: [...], files: {...} }
@@ -228,7 +228,7 @@ DevForge Server: create_project
 User Request: Save state before context limit
     │
     ▼
-DevForge Server: auto_refresh
+AppCreator Server: auto_refresh
     │
     ├─> Load state from Map
     │   └─> projectStates.get(name)
@@ -237,7 +237,7 @@ DevForge Server: auto_refresh
     │   └─> JSON.stringify(state, null, 2)
     │
     ├─> Save to disk
-    │   └─> .devforge/state.json
+    │   └─> .appcreator/state.json
     │
     ├─> Update POML
     │   └─> PROJECT.poml
@@ -255,7 +255,7 @@ DevForge Server: auto_refresh
 
 ```
 project-name/
-├── .devforge/
+├── .appcreator/
 │   └── state.json              # Auto-refresh state
 ├── docs/
 │   └── (documentation)
@@ -273,10 +273,10 @@ project-name/
 └── README.md
 ```
 
-### DevForge Server Structure
+### AppCreator Server Structure
 
 ```
-devforge-mcp-server/
+appcreator-mcp-server/
 ├── src/
 │   └── index.ts               # All implementation
 ├── build/
@@ -479,7 +479,7 @@ interface ProjectState {
 
 ### Logging
 ```typescript
-console.error("DevForge MCP Server running on stdio")
+console.error("AppCreator MCP Server running on stdio")
 // Errors logged to stderr
 // Don't interfere with stdout (MCP protocol)
 ```
@@ -516,7 +516,7 @@ chmod +x build/index.js
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "node",
       "args": ["/absolute/path/to/build/index.js"]
     }

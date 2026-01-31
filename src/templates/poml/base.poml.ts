@@ -44,7 +44,7 @@ export const BASE_POML = `<poml>
   <auto-refresh>
     <enabled>true</enabled>
     <interval>3600000</interval>
-    <state-file>.devforge/state.json</state-file>
+    <state-file>.appcreator/state.json</state-file>
     <description>
       Auto-refresh prevents context loss by saving state periodically.
       Use the auto_refresh tool before reaching context limits.

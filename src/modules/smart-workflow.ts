@@ -105,53 +105,53 @@ export class SmartWorkflowModule {
   async analyzeAndRecommend(
     requirements: SmartProjectRequirements
   ): Promise<SmartRecommendations> {
-    console.log(`\n🧠 SMART ANALYSIS: ${requirements.projectName}`);
-    console.log(`════════════════════════════════════════════════════════\n`);
+    console.error(`\n🧠 SMART ANALYSIS: ${requirements.projectName}`);
+    console.error(`════════════════════════════════════════════════════════\n`);
 
     // STEP 1.1: Check NotebookLM availability
     let notebookContext = '';
     let notebookAvailable = false;
 
     if (requirements.notebookName) {
-      console.log(`📚 Checking NotebookLM: ${requirements.notebookName}...`);
+      console.error(`📚 Checking NotebookLM: ${requirements.notebookName}...`);
       notebookAvailable = await this.notebookLM.checkNotebookLMAvailability();
 
       if (notebookAvailable) {
         try {
           const notebook = await this.notebookLM.fetchNotebookContent(requirements.notebookName);
           notebookContext = `NotebookLM Context:\n${notebook.summary}\nKey Topics: ${notebook.keyTopics.join(', ')}`;
-          console.log(`   ✓ NotebookLM loaded (${notebook.metadata.sourceCount} sources)`);
+          console.error(`   ✓ NotebookLM loaded (${notebook.metadata.sourceCount} sources)`);
         } catch (error) {
-          console.log(`   ⚠️  Could not load NotebookLM, using standard mode`);
+          console.error(`   ⚠️  Could not load NotebookLM, using standard mode`);
         }
       } else {
-        console.log(`   ℹ️  NotebookLM not configured, using standard AI mode`);
+        console.error(`   ℹ️  NotebookLM not configured, using standard AI mode`);
       }
     }
 
     // STEP 1.2: Automatic Scale Detection
-    console.log(`\n📊 Detecting project scale...`);
+    console.error(`\n📊 Detecting project scale...`);
     const scale = await this.detectProjectScale(requirements, notebookContext);
-    console.log(`   → Scale: ${scale.size.toUpperCase()}`);
-    console.log(`   → Reasoning: ${scale.reasoning}`);
+    console.error(`   → Scale: ${scale.size.toUpperCase()}`);
+    console.error(`   → Reasoning: ${scale.reasoning}`);
 
     // STEP 1.3: Generate Smart Recommendations
-    console.log(`\n💡 Generating technology recommendations...`);
+    console.error(`\n💡 Generating technology recommendations...`);
     const recommendations = await this.generateRecommendations(
       requirements,
       scale,
       notebookContext
     );
 
-    console.log(`   ✓ Generated ${recommendations.length} recommendations`);
+    console.error(`   ✓ Generated ${recommendations.length} recommendations`);
 
     // STEP 1.4: Estimate complexity and duration
     const estimatedComplexity = this.estimateComplexity(scale, recommendations);
     const estimatedDuration = this.estimateDuration(estimatedComplexity, scale);
 
-    console.log(`\n📈 Project Estimates:`);
-    console.log(`   • Complexity: ${estimatedComplexity}`);
-    console.log(`   • Duration: ${estimatedDuration}`);
+    console.error(`\n📈 Project Estimates:`);
+    console.error(`   • Complexity: ${estimatedComplexity}`);
+    console.error(`   • Duration: ${estimatedDuration}`);
 
     return {
       scale,
@@ -168,12 +168,12 @@ export class SmartWorkflowModule {
     requirements: SmartProjectRequirements,
     recommendations: SmartRecommendations
   ): Promise<SmartWorkflowResult> {
-    console.log(`\n🚀 EXECUTING FULL WORKFLOW`);
-    console.log(`════════════════════════════════════════════════════════\n`);
+    console.error(`\n🚀 EXECUTING FULL WORKFLOW`);
+    console.error(`════════════════════════════════════════════════════════\n`);
 
     const projectPath = `C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-projects\\${requirements.projectName}`;
     await fs.mkdir(projectPath, { recursive: true });
-    await fs.mkdir(join(projectPath, '.devforge'), { recursive: true });
+    await fs.mkdir(join(projectPath, '.appcreator'), { recursive: true });
     await fs.mkdir(join(projectPath, 'docs'), { recursive: true });
 
     const files: string[] = [];
@@ -181,7 +181,7 @@ export class SmartWorkflowModule {
     let coverage = 0;
 
     // Phase 1: Generate Spec-Kit (with or without NotebookLM)
-    console.log(`📋 Phase 1: Generating Spec-Kit...`);
+    console.error(`📋 Phase 1: Generating Spec-Kit...`);
     let specKit: SpecKit;
 
     if (requirements.notebookName) {
@@ -197,9 +197,9 @@ export class SmartWorkflowModule {
           specKit = enrichment.enrichedSpecKit;
           coverage = enrichment.coverageScore;
           notebookUsed = true;
-          console.log(`   ✓ Spec-Kit enriched with NotebookLM (${coverage.toFixed(1)}% coverage)`);
+          console.error(`   ✓ Spec-Kit enriched with NotebookLM (${coverage.toFixed(1)}% coverage)`);
         } catch (error) {
-          console.log(`   ⚠️  NotebookLM failed, using standard generation`);
+          console.error(`   ⚠️  NotebookLM failed, using standard generation`);
           specKit = await this.generateStandardSpecKit(requirements, recommendations);
         }
       } else {
@@ -213,7 +213,7 @@ export class SmartWorkflowModule {
     files.push(...await this.saveSpecKitFiles(specKit, projectPath));
 
     // Phase 2: Generate A2UI Frontend
-    console.log(`\n🎨 Phase 2: Generating A2UI Frontend...`);
+    console.error(`\n🎨 Phase 2: Generating A2UI Frontend...`);
     const uiPreferences = this.extractUIPreferences(recommendations);
     const a2uiSpec = await this.a2uiGenerator.generateA2UISpec(
       specKit.specification,
@@ -225,28 +225,28 @@ export class SmartWorkflowModule {
     );
 
     files.push(...await this.saveA2UIFiles(a2uiSpec, a2uiCode, projectPath));
-    console.log(`   ✓ Generated ${a2uiSpec.layouts.length} layouts, ${a2uiSpec.layouts.reduce((s: number, l: any) => s + l.components.length, 0)} components`);
+    console.error(`   ✓ Generated ${a2uiSpec.layouts.length} layouts, ${a2uiSpec.layouts.reduce((s: number, l: any) => s + l.components.length, 0)} components`);
 
     // Phase 3: Generate API Tests
-    console.log(`\n🧪 Phase 3: Generating API Tests...`);
+    console.error(`\n🧪 Phase 3: Generating API Tests...`);
     files.push(...await this.generateAPITests(specKit, projectPath));
 
     // Phase 4: Generate BDD Tests
-    console.log(`\n🥒 Phase 4: Generating BDD Tests...`);
+    console.error(`\n🥒 Phase 4: Generating BDD Tests...`);
     files.push(...await this.generateBDDTests(specKit, projectPath));
 
     // Phase 5: Initialize POML
-    console.log(`\n💾 Phase 5: Initializing POML & Checkpoint...`);
+    console.error(`\n💾 Phase 5: Initializing POML & Checkpoint...`);
     const pomlState = this.pomlOrchestrator.initializePOML(specKit);
     const pomlPath = join(projectPath, 'PROJECT.poml');
     await fs.writeFile(pomlPath, this.pomlOrchestrator.exportPOML(pomlState), 'utf-8');
     files.push(pomlPath);
 
-    console.log(`\n════════════════════════════════════════════════════════`);
-    console.log(`✅ PROJECT COMPLETE!`);
-    console.log(`   📁 Location: ${projectPath}`);
-    console.log(`   📄 Files: ${files.length} generated`);
-    console.log(`════════════════════════════════════════════════════════\n`);
+    console.error(`\n════════════════════════════════════════════════════════`);
+    console.error(`✅ PROJECT COMPLETE!`);
+    console.error(`   📁 Location: ${projectPath}`);
+    console.error(`   📄 Files: ${files.length} generated`);
+    console.error(`════════════════════════════════════════════════════════\n`);
 
     return {
       projectPath,
@@ -640,6 +640,14 @@ Return ONLY ONE WORD: small, medium, large, or enterprise`;
 
   private async generateAPITests(specKit: SpecKit, projectPath: string): Promise<string[]> {
     const files: string[] = [];
+
+    // Check if API endpoints exist
+    const endpoints = specKit.specification.apiDesign?.endpoints || [];
+    if (endpoints.length === 0) {
+      console.error(`   ⚠️ No API endpoints found, skipping Postman generation`);
+      return files;
+    }
+
     const postmanDir = join(projectPath, 'postman');
     await fs.mkdir(postmanDir, { recursive: true });
 
@@ -652,6 +660,8 @@ Return ONLY ONE WORD: small, medium, large, or enterprise`;
     const collectionPath = join(postmanDir, 'collection.json');
     await fs.writeFile(collectionPath, this.postmanGenerator.exportCollection(collection), 'utf-8');
     files.push(collectionPath);
+
+    console.error(`   ✓ Generated ${endpoints.length} API test requests`);
 
     return files;
   }

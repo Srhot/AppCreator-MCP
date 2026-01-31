@@ -91,60 +91,60 @@ export class AutoWorkflowModule {
    * 8. Create initial checkpoint
    */
   async executeFullWorkflow(config: AutoWorkflowConfig): Promise<AutoWorkflowResult> {
-    console.log(`\n🚀 STARTING FULLY AUTOMATED WORKFLOW`);
-    console.log(`   Project: ${config.projectName}`);
-    console.log(`   Type: ${config.projectType}`);
-    console.log(`   NotebookLM: ${config.notebookName}`);
-    console.log(`\n════════════════════════════════════════════════════════\n`);
+    console.error(`\n🚀 STARTING FULLY AUTOMATED WORKFLOW`);
+    console.error(`   Project: ${config.projectName}`);
+    console.error(`   Type: ${config.projectType}`);
+    console.error(`   NotebookLM: ${config.notebookName}`);
+    console.error(`\n════════════════════════════════════════════════════════\n`);
 
     const projectPath = `C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-projects\\${config.projectName}`;
     await fs.mkdir(projectPath, { recursive: true });
-    await fs.mkdir(join(projectPath, '.devforge'), { recursive: true });
+    await fs.mkdir(join(projectPath, '.appcreator'), { recursive: true });
     await fs.mkdir(join(projectPath, 'docs'), { recursive: true });
 
     const files: string[] = [];
 
     // PHASE 1: Fetch NotebookLM Documentation
-    console.log(`📚 PHASE 1: Fetching NotebookLM Documentation...`);
+    console.error(`📚 PHASE 1: Fetching NotebookLM Documentation...`);
     const notebookAvailable = await this.notebookLM.checkNotebookLMAvailability();
 
     let notebookContent = null;
     if (notebookAvailable) {
       try {
         notebookContent = await this.notebookLM.fetchNotebookContent(config.notebookName);
-        console.log(`   ✓ Loaded ${notebookContent.metadata.sourceCount} sources from notebook`);
+        console.error(`   ✓ Loaded ${notebookContent.metadata.sourceCount} sources from notebook`);
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
-        console.log(`   ⚠️  Could not fetch notebook: ${errorMessage}`);
-        console.log(`   → Falling back to standard AI generation`);
+        console.error(`   ⚠️  Could not fetch notebook: ${errorMessage}`);
+        console.error(`   → Falling back to standard AI generation`);
       }
     } else {
-      console.log(`   ⚠️  NotebookLM not available`);
-      console.log(`   → Using standard AI generation`);
+      console.error(`   ⚠️  NotebookLM not available`);
+      console.error(`   → Using standard AI generation`);
     }
 
     // PHASE 2: Generate Decision Matrix
-    console.log(`\n🎯 PHASE 2: Generating Decision Matrix...`);
+    console.error(`\n🎯 PHASE 2: Generating Decision Matrix...`);
     const matrix = await this.decisionMatrix.createMatrix(
       config.projectType,
       notebookContent
         ? `Project based on NotebookLM: ${config.notebookName}\n\nSummary: ${notebookContent.summary}`
         : `Project: ${config.projectName}`
     );
-    console.log(`   ✓ Generated ${matrix.questions.length} decision matrix questions`);
+    console.error(`   ✓ Generated ${matrix.questions.length} decision matrix questions`);
 
     // PHASE 3: AUTO-ANSWER Decision Matrix
-    console.log(`\n🤖 PHASE 3: Auto-Answering Decision Matrix (AI)...`);
+    console.error(`\n🤖 PHASE 3: Auto-Answering Decision Matrix (AI)...`);
     const answers = await this.autoAnswerDecisionMatrix(
       matrix,
       notebookContent,
       config.additionalRequirements || []
     );
     matrix.answers = answers;
-    console.log(`   ✓ Auto-answered all ${answers.length} questions`);
+    console.error(`   ✓ Auto-answered all ${answers.length} questions`);
 
     // PHASE 4: Generate Enriched Spec-Kit
-    console.log(`\n📋 PHASE 4: Generating Spec-Kit...`);
+    console.error(`\n📋 PHASE 4: Generating Spec-Kit...`);
     let specKit: SpecKit;
     let enrichmentCoverage = 0;
 
@@ -168,7 +168,7 @@ export class AutoWorkflowModule {
       );
       files.push(enrichmentPath);
 
-      console.log(`   ✓ Spec-Kit enriched with NotebookLM (${enrichmentCoverage.toFixed(1)}% coverage)`);
+      console.error(`   ✓ Spec-Kit enriched with NotebookLM (${enrichmentCoverage.toFixed(1)}% coverage)`);
     } else {
       // Standard generation
       specKit = await this.specKit.generateSpecKit(
@@ -177,7 +177,7 @@ export class AutoWorkflowModule {
         `Project: ${config.projectName}`,
         matrix
       );
-      console.log(`   ✓ Spec-Kit generated (standard mode)`);
+      console.error(`   ✓ Spec-Kit generated (standard mode)`);
     }
 
     // Save Spec-Kit files
@@ -214,7 +214,7 @@ export class AutoWorkflowModule {
     files.push(tasksPath);
 
     // PHASE 5: Generate A2UI Frontend
-    console.log(`\n🎨 PHASE 5: Generating A2UI Frontend...`);
+    console.error(`\n🎨 PHASE 5: Generating A2UI Frontend...`);
     const uiPreferences = this.getUIPreferences(config.uiPreferences, config.projectType);
     const a2uiResult = await this.a2uiGenerator.generateA2UISpec(
       specKit.specification,
@@ -246,10 +246,10 @@ export class AutoWorkflowModule {
     await fs.writeFile(stitchPath, stitchPrompt, 'utf-8');
     files.push(stitchPath);
 
-    console.log(`   ✓ Generated ${a2uiResult.layouts.length} layouts, ${a2uiResult.layouts.reduce((sum: number, l: any) => sum + l.components.length, 0)} components`);
+    console.error(`   ✓ Generated ${a2uiResult.layouts.length} layouts, ${a2uiResult.layouts.reduce((sum: number, l: any) => sum + l.components.length, 0)} components`);
 
     // PHASE 6: Generate API Tests
-    console.log(`\n🧪 PHASE 6: Generating API Tests...`);
+    console.error(`\n🧪 PHASE 6: Generating API Tests...`);
     const postmanDir = join(projectPath, 'postman');
     await fs.mkdir(postmanDir, { recursive: true });
 
@@ -278,10 +278,10 @@ export class AutoWorkflowModule {
       files.push(envPath);
     }
 
-    console.log(`   ✓ Generated Postman collection + 3 environments`);
+    console.error(`   ✓ Generated Postman collection + 3 environments`);
 
     // PHASE 7: Generate BDD Tests
-    console.log(`\n🥒 PHASE 7: Generating BDD Tests...`);
+    console.error(`\n🥒 PHASE 7: Generating BDD Tests...`);
     const testSuite = await this.bddGenerator.generateTestSuite(
       specKit.specification,
       specKit.technicalPlan.architecture.pattern
@@ -295,23 +295,23 @@ export class AutoWorkflowModule {
       files.push(fullPath);
     }
 
-    console.log(`   ✓ Generated ${testFiles.features.length} BDD feature files`);
+    console.error(`   ✓ Generated ${testFiles.features.length} BDD feature files`);
 
     // PHASE 8: Initialize POML & Checkpoint
-    console.log(`\n💾 PHASE 8: Initializing POML & Checkpoint System...`);
+    console.error(`\n💾 PHASE 8: Initializing POML & Checkpoint System...`);
     const pomlState = this.pomlOrchestrator.initializePOML(specKit);
     const pomlPath = join(projectPath, 'PROJECT.poml');
     await fs.writeFile(pomlPath, this.pomlOrchestrator.exportPOML(pomlState), 'utf-8');
     files.push(pomlPath);
 
-    const statePath = join(projectPath, '.devforge', 'state.json');
+    const statePath = join(projectPath, '.appcreator', 'state.json');
     await fs.writeFile(statePath, JSON.stringify(pomlState, null, 2), 'utf-8');
 
-    console.log(`   ✓ POML initialized, checkpoint system active`);
+    console.error(`   ✓ POML initialized, checkpoint system active`);
 
     // Generate Summary
-    console.log(`\n════════════════════════════════════════════════════════`);
-    console.log(`✅ WORKFLOW COMPLETE!\n`);
+    console.error(`\n════════════════════════════════════════════════════════`);
+    console.error(`✅ WORKFLOW COMPLETE!\n`);
 
     const summary = {
       phase: 'complete',

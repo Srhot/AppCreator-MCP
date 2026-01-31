@@ -645,7 +645,7 @@ Responsive olsun, dark mode desteği olsun."
 // PROJECT.poml dosyasını Claude Code'a verin:
 "PROJECT.poml dosyasını oku ve projeyi anımsa."
 
-// Veya .devforge/continuation-prompt.txt'yi kullanın
+// Veya .appcreator/continuation-prompt.txt'yi kullanın
 ```
 
 ### Sorun 5: Build/Test Hatası
@@ -814,7 +814,7 @@ appcreator-projects/
     ├── frontend/
     │   ├── a2ui-spec.json         # A2UI declarative spec
     │   └── src/                   # React/Vue components
-    ├── .devforge/
+    ├── .appcreator/
     │   ├── state.json             # Proje durumu
     │   └── continuation-prompt.txt # Context recovery prompt
     └── PROJECT.poml               # POML context preservation
@@ -871,7 +871,7 @@ Projeye yeni feature ekle: 'Kullanıcı profil fotoğrafı yükleme'
 # Context kaybettiyseniz:
 
 # 1. Continuation prompt'u kullanın
-cat .devforge/continuation-prompt.txt
+cat .appcreator/continuation-prompt.txt
 
 # 2. Claude Code'a verin:
 "[continuation-prompt içeriği]"

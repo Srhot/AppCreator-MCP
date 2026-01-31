@@ -1,13 +1,13 @@
 # 📋 AppCreator MCP v2.1 - Session Summary & Continuation Guide
 
 **Tarih:** 2025-01-27
-**Durum:** ✅ Smart Workflow Tamamlandı + DevForge→AppCreator Renaming - GitHub'a Hazır
+**Durum:** ✅ Smart Workflow Tamamlandı + AppCreator→AppCreator Renaming - GitHub'a Hazır
 **Versiyon:** 2.1.0 (Stable)
 
 ## 🔄 SON DAKİKA GÜNCELLEMESİ
 
-**DevForge → AppCreator Renaming Tamamlandı:**
-- ✅ Tüm dosyalarda "DevForge" → "AppCreator"
+**AppCreator → AppCreator Renaming Tamamlandı:**
+- ✅ Tüm dosyalarda "AppCreator" → "AppCreator"
 - ✅ package.json: `appcreator-mcp-server` v2.1.0
 - ✅ Server name: `"appcreator-mcp-server"`
 - ✅ Project paths: `appcreator-projects`
@@ -18,7 +18,7 @@
 ```json
 {
   "mcpServers": {
-    "appcreator": {  // ← ARTIK "devforge" DEĞİL!
+    "appcreator": {  // ← ARTIK "AppCreator" DEĞİL!
       "command": "node",
       "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\AppCreator-MCP\\build\\index.js"]
     }
@@ -492,7 +492,7 @@ Test başarılı sayılacak eğer:
    - tests/postman/
    - tests/features/
    - frontend/a2ui-spec.json
-   - .devforge/state.json
+   - .appcreator/state.json
 5. ✅ POML context preservation çalışırsa
 6. ✅ Dosyalar doğru yere giderse (appcreator-projects/)
 

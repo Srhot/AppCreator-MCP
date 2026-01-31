@@ -145,7 +145,7 @@ Ama şimdilik standart Gemini API'yi çalıştırmaya odaklanalım!
 
 1. https://aistudio.google.com/app/apikey
 2. "Create API Key" → "Create API key in new project"
-3. Yeni proje adı ver (örn: "devforge-gemini")
+3. Yeni proje adı ver (örn: "AppCreator-gemini")
 4. Key oluşturulmasını bekle
 5. Yeni key'i bana gönder, test edelim!
 

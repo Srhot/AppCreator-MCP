@@ -1,11 +1,11 @@
-# DevForge Quick Start Guide
+# AppCreator Quick Start Guide
 
-Get started with DevForge in 5 minutes!
+Get started with AppCreator in 5 minutes!
 
 ## 1. Install (1 minute)
 
 ```bash
-cd devforge-mcp-server
+cd appcreator-mcp-server
 npm install
 npm run build
 ```
@@ -21,9 +21,9 @@ Add this:
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"]
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"]
     }
   }
 }
@@ -35,21 +35,21 @@ Add this:
 
 1. Quit Claude Desktop completely
 2. Start Claude Desktop
-3. DevForge tools should now be available
+3. AppCreator tools should now be available
 
 ## 4. Create Your First Project (1 minute)
 
 In Claude Desktop, say:
 
 ```
-Use DevForge to create a web application called "todo-app"
+Use AppCreator to create a web application called "todo-app"
 using React and TypeScript with features for task management
 and user authentication.
 ```
 
 ## 5. Explore the Project (30 seconds)
 
-DevForge will create:
+AppCreator will create:
 - ✅ Complete folder structure
 - ✅ Configuration files
 - ✅ Boilerplate code
@@ -124,8 +124,8 @@ Popular combinations:
 1. **Auto-refresh is critical!** Use it every 30-60 minutes to prevent context loss
 2. **Check status frequently** to stay oriented
 3. **POML files are documentation** - commit them to git
-4. **Features are tracked automatically** - DevForge counts tasks
-5. **State is saved in `.devforge/`** - don't commit this folder
+4. **Features are tracked automatically** - AppCreator counts tasks
+5. **State is saved in `.appcreator/`** - don't commit this folder
 
 ## Troubleshooting
 
@@ -178,7 +178,7 @@ You: Save the state
 
 Claude: [Uses auto_refresh]
         ✅ State saved!
-        Location: .devforge/state.json
+        Location: .appcreator/state.json
         Continuation prompt generated
 ```
 
@@ -201,4 +201,4 @@ Need help?
 
 ---
 
-**You're ready to build! Start creating amazing projects with DevForge! 🚀**
+**You're ready to build! Start creating amazing projects with AppCreator! 🚀**

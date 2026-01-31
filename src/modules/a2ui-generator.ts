@@ -17,6 +17,7 @@
 
 import { AIAdapter } from '../adapters/ai-adapter.interface.js';
 import { Specification } from './spec-kit.js';
+import { parseJSONWithDefault } from '../utils/json-parser.js';
 
 /**
  * A2UI Component Definition
@@ -135,10 +136,10 @@ export class A2UIGenerator {
     specification: Specification,
     preferences: A2UIDesignPreferences
   ): Promise<A2UISpec> {
-    console.log(`\n🎨 Generating A2UI specification...`);
-    console.log(`   Platform: ${preferences.platform}`);
-    console.log(`   Framework: ${preferences.framework}`);
-    console.log(`   UI Library: ${preferences.uiLibrary}`);
+    console.error(`\n🎨 Generating A2UI specification...`);
+    console.error(`   Platform: ${preferences.platform}`);
+    console.error(`   Framework: ${preferences.framework}`);
+    console.error(`   UI Library: ${preferences.uiLibrary}`);
 
     // Step 1: Analyze functional requirements and generate layouts
     const layouts = await this.generateLayouts(
@@ -181,10 +182,10 @@ export class A2UIGenerator {
       dataBindings,
     };
 
-    console.log(`✅ A2UI spec generated:`);
-    console.log(`   - Layouts: ${layouts.length}`);
-    console.log(`   - Routes: ${routes.length}`);
-    console.log(`   - Data bindings: ${dataBindings.length}`);
+    console.error(`✅ A2UI spec generated:`);
+    console.error(`   - Layouts: ${layouts.length}`);
+    console.error(`   - Routes: ${routes.length}`);
+    console.error(`   - Data bindings: ${dataBindings.length}`);
 
     return a2uiSpec;
   }
@@ -240,13 +241,11 @@ Return ONLY valid JSON, no markdown.`;
 
       try {
         const response = await this.aiAdapter.generateText(prompt, 1500);
-        const jsonMatch = response.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          const layout = JSON.parse(jsonMatch[0]);
-          layouts.push(layout);
-        }
+        const layout = parseJSONWithDefault<A2UILayout>(response, this.getDefaultLayout(req), `generateLayout-${req.id}`);
+        layouts.push(layout);
       } catch (error) {
-        console.log(`⚠️  Failed to generate layout for: ${req.title}`);
+        console.error(`⚠️  Failed to generate layout for: ${req.title}, using default`);
+        layouts.push(this.getDefaultLayout(req));
       }
     }
 
@@ -375,7 +374,7 @@ Return ONLY valid JSON, no markdown.`;
     a2uiSpec: A2UISpec,
     preferences: A2UIDesignPreferences
   ): Promise<GeneratedUICode> {
-    console.log(`\n💻 Generating ${preferences.framework} implementation code...`);
+    console.error(`\n💻 Generating ${preferences.framework} implementation code...`);
 
     const implementations = await this.generateFrameworkCode(a2uiSpec, preferences);
     const assets = this.generateAssets(a2uiSpec);
@@ -634,5 +633,40 @@ ${a2uiSpec.dataBindings.map(b => `- ${b.componentId} → ${b.apiEndpoint}`).join
     };
 
     return fontMap[designStyle] || 'Inter, system-ui, sans-serif';
+  }
+
+  /**
+   * Helper: Get default layout when AI generation fails
+   */
+  private getDefaultLayout(req: { id: string; title: string; description: string }): A2UILayout {
+    return {
+      id: `layout-${req.id}`,
+      components: [
+        {
+          id: `comp-header-${req.id}`,
+          type: 'Header',
+          props: { title: req.title },
+          metadata: { purpose: 'Page header', testId: `header-${req.id}` }
+        },
+        {
+          id: `comp-content-${req.id}`,
+          type: 'Container',
+          props: { padding: 'medium' },
+          children: [`comp-card-${req.id}`],
+          metadata: { purpose: 'Main content', testId: `content-${req.id}` }
+        },
+        {
+          id: `comp-card-${req.id}`,
+          type: 'Card',
+          props: { title: req.title, description: req.description },
+          metadata: { purpose: 'Feature card', testId: `card-${req.id}` }
+        }
+      ],
+      metadata: {
+        title: req.title,
+        description: req.description,
+        route: `/${req.id.toLowerCase().replace(/[^a-z0-9]/g, '-')}`
+      }
+    };
   }
 }

@@ -1,7 +1,7 @@
 /**
- * Master Orchestrator - Complete DevForge Workflow Manager
+ * Master Orchestrator - Complete AppCreator Workflow Manager
  *
- * This is the BRAIN of DevForge. It orchestrates the entire workflow:
+ * This is the BRAIN of AppCreator. It orchestrates the entire workflow:
  *
  * PHASE 1: DISCOVERY & PLANNING
  * 1. Gather user requirements
@@ -115,8 +115,8 @@ export class MasterOrchestrator {
     decisionMatrix: any;
     message: string;
   }> {
-    console.log(`\n🚀 Starting project: ${projectName}`);
-    console.log(`📋 Phase: Requirements & Decision Matrix\n`);
+    console.error(`\n🚀 Starting project: ${projectName}`);
+    console.error(`📋 Phase: Requirements & Decision Matrix\n`);
 
     // Generate decision matrix
     const matrix = await this.decisionMatrix.createMatrix(projectType, description);
@@ -142,7 +142,7 @@ export class MasterOrchestrator {
     files: string[];
     message: string;
   }> {
-    console.log(`\n📚 Generating Spec-Kit...`);
+    console.error(`\n📚 Generating Spec-Kit...`);
 
     // Generate complete Spec-Kit
     const specKit = await this.specKitModule.generateSpecKit(
@@ -157,7 +157,7 @@ export class MasterOrchestrator {
 
     // Create project structure
     await fs.mkdir(projectPath, { recursive: true });
-    await fs.mkdir(join(projectPath, '.devforge'), { recursive: true });
+    await fs.mkdir(join(projectPath, '.appcreator'), { recursive: true });
     await fs.mkdir(join(projectPath, 'docs'), { recursive: true });
 
     // Save Spec-Kit files
@@ -205,10 +205,10 @@ export class MasterOrchestrator {
     files.push(pomlPath);
 
     // Save state
-    const statePath = join(projectPath, '.devforge', 'state.json');
+    const statePath = join(projectPath, '.appcreator', 'state.json');
     await fs.writeFile(statePath, JSON.stringify(pomlState, null, 2), 'utf-8');
 
-    console.log(`✅ Spec-Kit generated: ${files.length} files created\n`);
+    console.error(`✅ Spec-Kit generated: ${files.length} files created\n`);
 
     return {
       specKit,
@@ -230,7 +230,7 @@ export class MasterOrchestrator {
     testingGuide: string;
     newmanCommands: any;
   }> {
-    console.log(`\n🧪 Generating API test collections...`);
+    console.error(`\n🧪 Generating API test collections...`);
 
     // Create postman directory
     const postmanDir = join(projectPath, 'postman');
@@ -279,7 +279,7 @@ export class MasterOrchestrator {
       'postman/dev.environment.json'
     );
 
-    console.log(`✅ API tests generated\n`);
+    console.error(`✅ API tests generated\n`);
 
     return {
       collectionPath,
@@ -300,7 +300,7 @@ export class MasterOrchestrator {
     promptPath: string;
     prompt: any;
   }> {
-    console.log(`\n🎨 Generating frontend prompt...`);
+    console.error(`\n🎨 Generating frontend prompt...`);
 
     const config = {
       platform: userAnswers.platform as any,
@@ -325,7 +325,7 @@ export class MasterOrchestrator {
       'utf-8'
     );
 
-    console.log(`✅ Frontend prompt generated\n`);
+    console.error(`✅ Frontend prompt generated\n`);
 
     return {
       promptPath,
@@ -344,7 +344,7 @@ export class MasterOrchestrator {
     stepDefinitionsPath: string;
     configPaths: string[];
   }> {
-    console.log(`\n🥒 Generating BDD/Cucumber tests...`);
+    console.error(`\n🥒 Generating BDD/Cucumber tests...`);
 
     const testSuite = await this.bddGenerator.generateTestSuite(
       specKit.specification,
@@ -382,7 +382,7 @@ export class MasterOrchestrator {
       configPaths.push(fullPath);
     }
 
-    console.log(`✅ BDD tests generated\n`);
+    console.error(`✅ BDD tests generated\n`);
 
     return {
       featurePaths,
@@ -404,7 +404,7 @@ export class MasterOrchestrator {
     checkpoint: any;
     continuationPrompt: string;
   }> {
-    console.log(`\n💾 Creating checkpoint...`);
+    console.error(`\n💾 Creating checkpoint...`);
 
     const checkpoint = await this.pomlOrchestrator.createCheckpoint(
       pomlState,
@@ -418,15 +418,15 @@ export class MasterOrchestrator {
     await fs.writeFile(pomlPath, this.pomlOrchestrator.exportPOML(pomlState), 'utf-8');
 
     // Save state
-    const statePath = join(projectPath, '.devforge', 'state.json');
+    const statePath = join(projectPath, '.appcreator', 'state.json');
     await fs.writeFile(statePath, JSON.stringify(pomlState, null, 2), 'utf-8');
 
     // Generate continuation prompt
     const continuationPrompt = await this.pomlOrchestrator.generateContinuationPrompt(pomlState);
-    const promptPath = join(projectPath, '.devforge', 'continuation-prompt.txt');
+    const promptPath = join(projectPath, '.appcreator', 'continuation-prompt.txt');
     await fs.writeFile(promptPath, continuationPrompt, 'utf-8');
 
-    console.log(`✅ Checkpoint created: ${checkpoint.id}\n`);
+    console.error(`✅ Checkpoint created: ${checkpoint.id}\n`);
 
     return {
       checkpoint,
@@ -508,8 +508,8 @@ export class MasterOrchestrator {
     notebookContent: any;
     message: string;
   }> {
-    console.log(`\n📚 PHASE 1 (NotebookLM): Starting project "${projectName}"`);
-    console.log(`   Using NotebookLM: ${notebookName}`);
+    console.error(`\n📚 PHASE 1 (NotebookLM): Starting project "${projectName}"`);
+    console.error(`   Using NotebookLM: ${notebookName}`);
 
     // Check NotebookLM availability
     const isAvailable = await this.notebookLMModule.checkNotebookLMAvailability();
@@ -522,7 +522,7 @@ export class MasterOrchestrator {
     // Fetch notebook content
     const notebookContent = await this.notebookLMModule.fetchNotebookContent(notebookName);
 
-    console.log(`✅ Notebook loaded: ${notebookContent.metadata.sourceCount} sources found`);
+    console.error(`✅ Notebook loaded: ${notebookContent.metadata.sourceCount} sources found`);
 
     // Generate decision matrix enriched with notebook content
     const matrix = await this.notebookLMModule.enrichDecisionMatrixWithNotebook(
@@ -557,7 +557,7 @@ export class MasterOrchestrator {
     files: string[];
     message: string;
   }> {
-    console.log(`\n📚 PHASE 2 (NotebookLM): Generating enriched Spec-Kit...`);
+    console.error(`\n📚 PHASE 2 (NotebookLM): Generating enriched Spec-Kit...`);
 
     // Enrich SpecKit with NotebookLM
     const enrichment = await this.notebookLMModule.enrichSpecKitWithNotebook(
@@ -574,7 +574,7 @@ export class MasterOrchestrator {
 
     // Create project structure
     await fs.mkdir(projectPath, { recursive: true });
-    await fs.mkdir(join(projectPath, '.devforge'), { recursive: true });
+    await fs.mkdir(join(projectPath, '.appcreator'), { recursive: true });
     await fs.mkdir(join(projectPath, 'docs'), { recursive: true });
 
     // Save Spec-Kit files
@@ -631,13 +631,13 @@ export class MasterOrchestrator {
     files.push(pomlPath);
 
     // Save state
-    const statePath = join(projectPath, '.devforge', 'state.json');
+    const statePath = join(projectPath, '.appcreator', 'state.json');
     await fs.writeFile(statePath, JSON.stringify(pomlState, null, 2), 'utf-8');
 
-    console.log(`✅ Enriched Spec-Kit generated:`);
-    console.log(`   - Coverage: ${enrichment.coverageScore.toFixed(1)}%`);
-    console.log(`   - Notebook contributions: ${enrichment.notebookContributions.length}`);
-    console.log(`   - AI-supplemented topics: ${enrichment.missingInformation.length}`);
+    console.error(`✅ Enriched Spec-Kit generated:`);
+    console.error(`   - Coverage: ${enrichment.coverageScore.toFixed(1)}%`);
+    console.error(`   - Notebook contributions: ${enrichment.notebookContributions.length}`);
+    console.error(`   - AI-supplemented topics: ${enrichment.missingInformation.length}`);
 
     return {
       specKit,
@@ -663,7 +663,7 @@ export class MasterOrchestrator {
     stitchPrompt: string;
     files: string[];
   }> {
-    console.log(`\n🎨 PHASE 4 (A2UI): Generating AI-powered frontend...`);
+    console.error(`\n🎨 PHASE 4 (A2UI): Generating AI-powered frontend...`);
 
     // Generate A2UI specification
     const a2uiSpec = await this.a2uiGenerator.generateA2UISpec(
@@ -710,10 +710,10 @@ export class MasterOrchestrator {
     await fs.writeFile(docsPath, docsContent, 'utf-8');
     files.push(docsPath);
 
-    console.log(`✅ A2UI frontend generated:`);
-    console.log(`   - Layouts: ${a2uiSpec.layouts.length}`);
-    console.log(`   - Components: ${a2uiSpec.layouts.reduce((sum: number, l: any) => sum + l.components.length, 0)}`);
-    console.log(`   - Implementation files: ${uiCode.implementations[0].files.length}`);
+    console.error(`✅ A2UI frontend generated:`);
+    console.error(`   - Layouts: ${a2uiSpec.layouts.length}`);
+    console.error(`   - Components: ${a2uiSpec.layouts.reduce((sum: number, l: any) => sum + l.components.length, 0)}`);
+    console.error(`   - Implementation files: ${uiCode.implementations[0].files.length}`);
 
     return {
       a2uiSpec,

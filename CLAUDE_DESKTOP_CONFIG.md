@@ -33,9 +33,9 @@ Use this if you want to use Anthropic's Claude as your AI provider.
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "claude",
         "AI_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE"
@@ -49,9 +49,9 @@ Use this if you want to use Anthropic's Claude as your AI provider.
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "claude",
         "AI_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
@@ -73,9 +73,9 @@ Use this if you want to use OpenAI's GPT models.
 ```json
 {
   "mcpServers": {
-    "devforge-openai": {
+    "AppCreator-openai": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "openai",
         "AI_API_KEY": "YOUR_OPENAI_API_KEY_HERE",
@@ -102,9 +102,9 @@ Use this if you want to use Google's Gemini models.
 ```json
 {
   "mcpServers": {
-    "devforge-gemini": {
+    "AppCreator-gemini": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "gemini",
         "AI_API_KEY": "YOUR_GOOGLE_API_KEY_HERE",
@@ -130,26 +130,26 @@ Use this if you want to run all three providers simultaneously and switch betwee
 ```json
 {
   "mcpServers": {
-    "devforge-claude": {
+    "AppCreator-claude": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "claude",
         "AI_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE"
       }
     },
-    "devforge-gpt4": {
+    "AppCreator-gpt4": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "openai",
         "AI_API_KEY": "YOUR_OPENAI_API_KEY_HERE",
         "AI_MODEL": "gpt-4o"
       }
     },
-    "devforge-gemini": {
+    "AppCreator-gemini": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "gemini",
         "AI_API_KEY": "YOUR_GOOGLE_API_KEY_HERE"
@@ -225,10 +225,10 @@ Close and reopen Claude Desktop app for changes to take effect.
 After updating the config and restarting Claude Desktop, the server should log:
 
 ```
-🤖 DevForge MCP Server
+🤖 AppCreator MCP Server
 📡 AI Provider: claude
 🎯 Model: claude-sonnet-4-20250514
-DevForge MCP Server running on stdio
+AppCreator MCP Server running on stdio
 ```
 
 ---
@@ -277,7 +277,7 @@ All three providers work well, but generation speed may vary:
 
 ## 📚 Additional Resources
 
-- [DevForge Documentation](./README.md)
+- [AppCreator Documentation](./README.md)
 - [MCP Server Guide](https://modelcontextprotocol.io/)
 - [Anthropic API Docs](https://docs.anthropic.com/)
 - [OpenAI API Docs](https://platform.openai.com/docs)
@@ -296,9 +296,9 @@ All three providers work well, but generation speed may vary:
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "claude",
         "AI_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE"
@@ -311,4 +311,4 @@ All three providers work well, but generation speed may vary:
 4. Replace `YOUR_ANTHROPIC_API_KEY_HERE` with your actual key
 5. Save and restart Claude Desktop
 
-✅ Done! Your DevForge MCP Server is ready to use.
+✅ Done! Your AppCreator MCP Server is ready to use.

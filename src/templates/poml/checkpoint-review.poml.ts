@@ -579,7 +579,7 @@ export function createDefaultProjectChecks(projectType: string): ProjectSpecific
     },
     {
       id: 'no-console-logs',
-      description: 'No console.log statements in production code',
+      description: 'No console.error statements in production code',
       checkFunction: () => true, // Placeholder
       priority: 'medium',
     },

@@ -2,7 +2,7 @@
 
 ## ✅ Yapılan Değişiklikler
 
-Tüm **DevForge** referansları **AppCreator** olarak değiştirildi:
+Tüm **AppCreator** referansları **AppCreator** olarak değiştirildi:
 
 ### Değiştirilen Dosyalar:
 1. ✅ `package.json` - name, description, keywords
@@ -14,10 +14,10 @@ Tüm **DevForge** referansları **AppCreator** olarak değiştirildi:
 7. ✅ `KULLANIM_REHBERI.md` - project paths
 
 ### Değişiklik Özeti:
-- `DevForge` → `AppCreator`
-- `devforge` → `appcreator`
-- `devforge-mcp-server` → `appcreator-mcp-server`
-- `devforge-projects` → `appcreator-projects`
+- `AppCreator` → `AppCreator`
+- `AppCreator` → `appcreator`
+- `appcreator-mcp-server` → `appcreator-mcp-server`
+- `AppCreator-projects` → `appcreator-projects`
 - Server name: `"appcreator-mcp-server"`
 - Version: `2.1.0`
 
@@ -117,7 +117,7 @@ GitHub'a push ettikten sonra, Claude Desktop config'i güncelle:
 }
 ```
 
-**ÖNEMLİ:** Key'i `"appcreator"` olarak kullan (artık `"devforge"` değil!)
+**ÖNEMLİ:** Key'i `"appcreator"` olarak kullan (artık `"AppCreator"` değil!)
 
 ### Development Mode (Opsiyonel):
 
@@ -200,7 +200,7 @@ git push -u origin main
 # Config path'i kontrol et
 echo %APPDATA%\Claude\claude_desktop_config.json
 
-# Server name'i kontrol et (appcreator olmalı, devforge değil!)
+# Server name'i kontrol et (appcreator olmalı, AppCreator değil!)
 # Claude Desktop'ı kapat ve tekrar aç
 ```
 

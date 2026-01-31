@@ -10,6 +10,7 @@
 
 import { AIAdapter } from '../adapters/ai-adapter.interface.js';
 import { DecisionMatrix } from './decision-matrix.js';
+import { parseJSONWithDefault } from '../utils/json-parser.js';
 
 export interface Constitution {
   projectName: string;
@@ -206,13 +207,34 @@ Return ONLY valid JSON with this exact structure:
   "governanceRules": ["...", "..."]
 }
 
-IMPORTANT: Return ONLY the JSON object, no markdown, no explanation.`;
+CRITICAL: Return ONLY valid JSON. No markdown, no explanation. Ensure all brackets and commas are correct.`;
 
     const response = await this.aiAdapter.generateText(prompt, 2500);
-    const jsonMatch = response.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('Failed to generate constitution');
 
-    return JSON.parse(jsonMatch[0]);
+    const defaultConstitution: Constitution = {
+      projectName,
+      vision: `Build a high-quality ${projectName} application`,
+      principles: [
+        'User-first design',
+        'Clean and maintainable code',
+        'Security by default',
+        'Performance optimization',
+        'Comprehensive testing'
+      ],
+      constraints: [
+        'Must be production-ready',
+        'Must follow best practices'
+      ],
+      qualityStandards: {
+        code: ['TypeScript strict mode', 'ESLint compliance'],
+        testing: ['80% code coverage', 'Unit and integration tests'],
+        documentation: ['API documentation', 'README'],
+        performance: ['Sub-200ms API response', 'Optimized queries']
+      },
+      governanceRules: ['Code review required', 'CI/CD pipeline']
+    };
+
+    return parseJSONWithDefault<Constitution>(response, defaultConstitution, 'generateConstitution');
   }
 
   /**
@@ -236,7 +258,8 @@ Create specification with:
 1. Functional requirements (8-12 requirements with acceptance criteria)
 2. Non-functional requirements (performance, security, scalability, etc.)
 3. Data model (entities, fields, relationships)
-4. ${projectType === 'api' ? 'API design (endpoints, methods, requests/responses)' : 'User flows'}
+4. API design (backend endpoints for the app - method, path, description, response)
+5. User flows
 
 Return ONLY valid JSON. Example structure:
 {
@@ -244,15 +267,15 @@ Return ONLY valid JSON. Example structure:
     {
       "id": "FR001",
       "title": "User Registration",
-      "description": "...",
+      "description": "Users can register with email and password",
       "priority": "critical",
-      "acceptanceCriteria": ["...", "..."]
+      "acceptanceCriteria": ["Email validation works", "Password is hashed"]
     }
   ],
   "nonFunctionalRequirements": [
     {
       "category": "performance",
-      "requirement": "...",
+      "requirement": "API response time",
       "metric": "response time",
       "target": "< 200ms"
     }
@@ -266,21 +289,78 @@ Return ONLY valid JSON. Example structure:
       }
     ]
   },
+  "apiDesign": {
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/api/auth/register",
+        "description": "Register new user",
+        "response": "{ user: User, token: string }"
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "description": "Login user",
+        "response": "{ user: User, token: string }"
+      }
+    ]
+  },
   "userFlows": [
     {
       "name": "Registration Flow",
-      "steps": ["...", "..."]
+      "steps": ["Open app", "Click register", "Enter details", "Submit"]
     }
   ]
 }
 
-IMPORTANT: Return ONLY the JSON object, no markdown.`;
+CRITICAL: Return ONLY valid JSON. No markdown, no explanation. Ensure all brackets and commas are correct.`;
 
-    const response = await this.aiAdapter.generateText(prompt, 4000);
-    const jsonMatch = response.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('Failed to generate specification');
+    const response = await this.aiAdapter.generateText(prompt, 5000);
 
-    return JSON.parse(jsonMatch[0]);
+    const defaultSpec: Specification = {
+      functionalRequirements: [{
+        id: 'FR001',
+        title: 'Core Feature',
+        description: description,
+        priority: 'critical',
+        acceptanceCriteria: ['Feature works as expected']
+      }],
+      nonFunctionalRequirements: [{
+        category: 'performance',
+        requirement: 'Fast response',
+        metric: 'response time',
+        target: '< 500ms'
+      }],
+      dataModel: {
+        entities: [{
+          name: 'User',
+          fields: [{ name: 'id', type: 'string', required: true }],
+          relationships: []
+        }]
+      },
+      apiDesign: {
+        endpoints: [
+          { method: 'POST', path: '/api/auth/login', description: 'User login', response: '{ token: string }' },
+          { method: 'POST', path: '/api/auth/register', description: 'User registration', response: '{ user: User }' },
+          { method: 'GET', path: '/api/users/me', description: 'Get current user', response: '{ user: User }' },
+          { method: 'GET', path: '/api/health', description: 'Health check', response: '{ status: ok }' }
+        ]
+      },
+      userFlows: [{
+        name: 'Main Flow',
+        steps: ['Open app', 'Login', 'Use features']
+      }]
+    };
+
+    const spec = parseJSONWithDefault<Specification>(response, defaultSpec, 'generateSpecification');
+
+    // Ensure apiDesign exists with at least basic endpoints
+    if (!spec.apiDesign || !spec.apiDesign.endpoints || spec.apiDesign.endpoints.length === 0) {
+      console.error('No API endpoints in parsed response, adding default endpoints');
+      spec.apiDesign = defaultSpec.apiDesign;
+    }
+
+    return spec;
   }
 
   /**
@@ -315,7 +395,7 @@ Return ONLY valid JSON with this structure:
     "components": [
       {
         "name": "UserController",
-        "responsibility": "...",
+        "responsibility": "Handle user requests",
         "dependencies": ["UserService"]
       }
     ]
@@ -325,7 +405,7 @@ Return ONLY valid JSON with this structure:
       "category": "Backend",
       "technology": "Node.js",
       "version": "20.x",
-      "rationale": "..."
+      "rationale": "Modern JavaScript runtime"
     }
   ],
   "infrastructure": {
@@ -336,8 +416,8 @@ Return ONLY valid JSON with this structure:
   "securityPlan": {
     "authentication": "JWT",
     "authorization": "RBAC",
-    "dataProtection": ["...", "..."],
-    "vulnerabilityMitigation": ["...", "..."]
+    "dataProtection": ["Encryption at rest", "TLS"],
+    "vulnerabilityMitigation": ["Input validation", "Rate limiting"]
   },
   "testingStrategy": {
     "unit": "Jest",
@@ -349,17 +429,55 @@ Return ONLY valid JSON with this structure:
   "deploymentPlan": {
     "cicd": "GitHub Actions",
     "environments": ["dev", "staging", "prod"],
-    "rollbackStrategy": "..."
+    "rollbackStrategy": "Blue-green deployment"
   }
 }
 
-IMPORTANT: Return ONLY JSON, no markdown.`;
+CRITICAL: Return ONLY valid JSON. No markdown, no explanation.`;
 
     const response = await this.aiAdapter.generateText(prompt, 3500);
-    const jsonMatch = response.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('Failed to generate technical plan');
 
-    return JSON.parse(jsonMatch[0]);
+    const defaultPlan: TechnicalPlan = {
+      architecture: {
+        pattern: 'MVC',
+        layers: ['presentation', 'business', 'data'],
+        components: [
+          { name: 'Controller', responsibility: 'Handle requests', dependencies: ['Service'] },
+          { name: 'Service', responsibility: 'Business logic', dependencies: ['Repository'] },
+          { name: 'Repository', responsibility: 'Data access', dependencies: [] }
+        ]
+      },
+      technologyStack: [
+        { category: 'Backend', technology: 'Node.js', version: '20.x', rationale: 'Modern runtime' },
+        { category: 'Database', technology: 'PostgreSQL', version: '15', rationale: 'Reliable RDBMS' },
+        { category: 'Frontend', technology: 'React', version: '18', rationale: 'Popular UI library' }
+      ],
+      infrastructure: {
+        hosting: 'Cloud Platform',
+        database: 'PostgreSQL',
+        monitoring: 'Application monitoring'
+      },
+      securityPlan: {
+        authentication: 'JWT',
+        authorization: 'RBAC',
+        dataProtection: ['Encryption', 'TLS'],
+        vulnerabilityMitigation: ['Input validation', 'Rate limiting']
+      },
+      testingStrategy: {
+        unit: 'Jest',
+        integration: 'Supertest',
+        e2e: 'Playwright',
+        bdd: true,
+        coverage: 80
+      },
+      deploymentPlan: {
+        cicd: 'GitHub Actions',
+        environments: ['dev', 'staging', 'prod'],
+        rollbackStrategy: 'Automated rollback'
+      }
+    };
+
+    return parseJSONWithDefault<TechnicalPlan>(response, defaultPlan, 'generateTechnicalPlan');
   }
 
   /**
@@ -387,27 +505,35 @@ Return ONLY valid JSON array:
   {
     "id": "T001",
     "title": "Setup project structure",
-    "description": "...",
+    "description": "Initialize project with required folders and files",
     "type": "setup",
     "priority": 1,
     "estimatedHours": 2,
     "dependencies": [],
-    "subtasks": ["...", "..."],
-    "acceptanceCriteria": ["...", "..."],
-    "testCriteria": ["..."]
+    "subtasks": ["Create folders", "Add config files"],
+    "acceptanceCriteria": ["Project runs", "Tests pass"],
+    "testCriteria": ["npm test passes"]
   }
 ]
 
 Task types: "setup", "feature", "test", "documentation", "deployment"
 Priority: 1 (highest) to 5 (lowest)
 
-IMPORTANT: Return ONLY JSON array, no markdown.`;
+CRITICAL: Return ONLY valid JSON array. No markdown, no explanation.`;
 
     const response = await this.aiAdapter.generateText(prompt, 5000);
-    const jsonMatch = response.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) throw new Error('Failed to generate tasks');
 
-    return JSON.parse(jsonMatch[0]);
+    const defaultTasks: Task[] = [
+      { id: 'T001', title: 'Project Setup', description: 'Initialize project', type: 'setup', priority: 1, estimatedHours: 4, dependencies: [], acceptanceCriteria: ['Project created'] },
+      { id: 'T002', title: 'Database Setup', description: 'Configure database', type: 'setup', priority: 1, estimatedHours: 3, dependencies: ['T001'], acceptanceCriteria: ['DB connected'] },
+      { id: 'T003', title: 'Authentication', description: 'Implement auth', type: 'feature', priority: 2, estimatedHours: 8, dependencies: ['T002'], acceptanceCriteria: ['Login works'] },
+      { id: 'T004', title: 'Core Features', description: 'Build main features', type: 'feature', priority: 2, estimatedHours: 16, dependencies: ['T003'], acceptanceCriteria: ['Features work'] },
+      { id: 'T005', title: 'Testing', description: 'Write tests', type: 'test', priority: 3, estimatedHours: 8, dependencies: ['T004'], acceptanceCriteria: ['Tests pass'] },
+      { id: 'T006', title: 'Documentation', description: 'Create docs', type: 'documentation', priority: 4, estimatedHours: 4, dependencies: ['T004'], acceptanceCriteria: ['Docs complete'] },
+      { id: 'T007', title: 'Deployment', description: 'Deploy app', type: 'deployment', priority: 5, estimatedHours: 4, dependencies: ['T005'], acceptanceCriteria: ['App deployed'] }
+    ];
+
+    return parseJSONWithDefault<Task[]>(response, defaultTasks, 'generateTasks');
   }
 
   /**

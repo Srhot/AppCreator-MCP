@@ -1,4 +1,4 @@
-# DevForge MCP Server - Complete Index
+# AppCreator MCP Server - Complete Index
 
 ## Quick Navigation
 
@@ -37,7 +37,7 @@
 - Troubleshooting
 - Best practices
 
-**Read this**: First, to understand what DevForge is
+**Read this**: First, to understand what AppCreator is
 
 #### QUICKSTART.md (4.9 KB)
 **Purpose**: Rapid onboarding guide
@@ -71,7 +71,7 @@
 - Extension points
 - Performance notes
 
-**Read this**: To understand how DevForge works internally
+**Read this**: To understand how AppCreator works internally
 
 #### POML_EXAMPLE.md (8.6 KB)
 **Purpose**: POML format documentation
@@ -110,7 +110,7 @@
 #### src/index.ts (17 KB)
 **Purpose**: Main server implementation
 **Contains**:
-- DevForgeServer class
+- AppCreatorServer class
 - All 5 tool handlers
 - State management
 - Project structure generators
@@ -119,7 +119,7 @@
 
 **Key Components**:
 ```typescript
-class DevForgeServer {
+class AppCreatorServer {
   // Core methods
   constructor()
   setupHandlers()
@@ -275,7 +275,7 @@ class DevForgeServer {
 ### Main Entry Point
 ```
 src/index.ts:675
-→ const server = new DevForgeServer();
+→ const server = new AppCreatorServer();
 → server.run().catch(console.error);
 ```
 
@@ -468,6 +468,6 @@ typescript (5.9.3)
 
 ---
 
-**DevForge MCP Server - Complete and Production Ready**
+**AppCreator MCP Server - Complete and Production Ready**
 
 Last Updated: 2025-01-17

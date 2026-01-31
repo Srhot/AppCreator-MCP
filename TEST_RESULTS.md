@@ -1,4 +1,4 @@
-# DevForge Multi-Provider Test Results
+# AppCreator Multi-Provider Test Results
 
 **Test Date:** 2025-11-19
 **Test Environment:** Windows 10, Node.js
@@ -157,14 +157,14 @@ All returned 404 errors, indicating the API key may be:
 
 ### To Use OpenAI (Already Working):
 
-Just use it! The `devforge-gpt4` server is ready in Claude Desktop.
+Just use it! The `AppCreator-gpt4` server is ready in Claude Desktop.
 
 ### To Fix Claude:
 
 1. Go to https://console.anthropic.com/settings/plans
 2. Add credits ($5 minimum recommended)
 3. Restart Claude Desktop
-4. Test with: "devforge-claude ile basit bir test projesi oluştur"
+4. Test with: "AppCreator-claude ile basit bir test projesi oluştur"
 
 ### To Fix Gemini:
 
@@ -175,7 +175,7 @@ Just use it! The `devforge-gpt4` server is ready in Claude Desktop.
    - AI Platform API
 4. Update `claude_desktop_config.json` with the new key
 5. Restart Claude Desktop
-6. Test with: "devforge-gemini ile basit bir test projesi oluştur"
+6. Test with: "AppCreator-gemini ile basit bir test projesi oluştur"
 
 ---
 
@@ -187,7 +187,7 @@ Just use it! The `devforge-gpt4` server is ready in Claude Desktop.
 
 ```
 Example prompt in Claude Desktop:
-"devforge-gpt4 ile basit bir web projesi oluştur"
+"AppCreator-gpt4 ile basit bir web projesi oluştur"
 ```
 
 ### For Production:
@@ -228,9 +228,9 @@ Based on test results, here's the recommended config for `claude_desktop_config.
 {
   "globalShortcut": "Shift+Ctrl+Space",
   "mcpServers": {
-    "devforge-gpt4": {
+    "AppCreator-gpt4": {
       "command": "node",
-      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"],
+      "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "openai",
         "AI_API_KEY": "YOUR_OPENAI_KEY_HERE",
@@ -246,4 +246,4 @@ Add Claude and Gemini back after fixing their API keys!
 ---
 
 **Test Completed Successfully** ✅
-**DevForge Multi-Provider System: PRODUCTION READY** 🚀
+**AppCreator Multi-Provider System: PRODUCTION READY** 🚀

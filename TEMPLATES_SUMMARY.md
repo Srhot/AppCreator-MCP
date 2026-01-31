@@ -271,7 +271,7 @@ const anchors = createDefaultMemoryAnchors('web', 'React');
 
 ## Integration Points
 
-### With DevForge Server
+### With AppCreator Server
 
 The refresh context template integrates with the main server:
 
@@ -428,7 +428,7 @@ The refresh context template integrates with the main server:
 - ✅ Examples provided
 
 ### Ready For
-- ✅ Integration with main DevForge server
+- ✅ Integration with main AppCreator server
 - ✅ Production use
 - ✅ Testing with real projects
 - ✅ Context preservation in long sessions
@@ -456,7 +456,7 @@ The refresh context template integrates with the main server:
 
 ---
 
-**CRITICAL IMPORTANCE**: The refresh context template is the cornerstone of DevForge's context preservation. It ensures that no matter how long the development session, critical project knowledge is never lost.
+**CRITICAL IMPORTANCE**: The refresh context template is the cornerstone of AppCreator's context preservation. It ensures that no matter how long the development session, critical project knowledge is never lost.
 
 ---
 

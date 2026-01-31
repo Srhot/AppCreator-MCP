@@ -1,4 +1,4 @@
-# DevForge MCP Server - Complete TODO List
+# AppCreator MCP Server - Complete TODO List
 
 **Last Updated:** 2025-11-19
 **Current Status:** Building complete system with all features
@@ -7,7 +7,7 @@
 
 ## 🎯 PROJECT VISION
 
-DevForge is a complete AI-powered software factory that:
+AppCreator is a complete AI-powered software factory that:
 1. Never loses context during development
 2. Generates complete project specifications
 3. Creates working code with tests
@@ -113,12 +113,12 @@ ${requirement.acceptanceCriteria.map((ac: string) => `- ${ac}`).join('\n')}
 
 ---
 
-## 🚀 COMPLETE WORKFLOW (What DevForge Should Do)
+## 🚀 COMPLETE WORKFLOW (What AppCreator Should Do)
 
 ### PHASE 1: DISCOVERY & PLANNING
-**User Action:** Tell DevForge about project idea
+**User Action:** Tell AppCreator about project idea
 
-**DevForge Actions:**
+**AppCreator Actions:**
 1. ✅ Gather requirements from user
 2. ✅ Research technology options
 3. ✅ Generate decision matrix with 5-8 architecture questions
@@ -127,7 +127,7 @@ ${requirement.acceptanceCriteria.map((ac: string) => `- ${ac}`).join('\n')}
 ### PHASE 2: SPECIFICATION GENERATION
 **User Action:** Approve architecture choice
 
-**DevForge Actions:**
+**AppCreator Actions:**
 1. ✅ Generate Constitution (project principles)
 2. ✅ Generate Specification (detailed requirements)
 3. ✅ Generate Technical Plan (architecture + tech stack)
@@ -137,19 +137,19 @@ ${requirement.acceptanceCriteria.map((ac: string) => `- ${ac}`).join('\n')}
 7. ✅ Initialize checkpoint system
 
 ### PHASE 3: BACKEND DEVELOPMENT
-**DevForge Actions:**
+**AppCreator Actions:**
 1. 🔄 Generate backend code (APIs, database, logic)
 2. ✅ Generate Postman collection for all APIs
 3. ✅ Generate Postman environments (dev, staging, prod)
 4. ✅ Generate Newman CLI test commands
 5. ⏸️ **WAIT FOR USER:** User tests APIs (Postman or Newman)
-6. 🔄 User reports issues → DevForge fixes them
+6. 🔄 User reports issues → AppCreator fixes them
 7. ✅ **CHECKPOINT EVERY 20-25 TASKS** to preserve context
 
 ### PHASE 4: FRONTEND DEVELOPMENT
 **User Action:** Approve backend, ready for frontend
 
-**DevForge Actions:**
+**AppCreator Actions:**
 1. ✅ Ask user frontend preferences:
    - Platform (Google Stitch / Lovable / v0 / Bolt)
    - Design style (modern / minimal / colorful / etc.)
@@ -166,25 +166,25 @@ ${requirement.acceptanceCriteria.map((ac: string) => `- ${ac}`).join('\n')}
 ### PHASE 5: FRONTEND INTEGRATION
 **User Action:** Frontend created, needs backend integration
 
-**DevForge Actions:**
+**AppCreator Actions:**
 1. 🔄 User provides frontend code
-2. 🔄 DevForge analyzes frontend
-3. 🔄 DevForge updates backend to match frontend needs
-4. 🔄 DevForge creates integration guide
+2. 🔄 AppCreator analyzes frontend
+3. 🔄 AppCreator updates backend to match frontend needs
+4. 🔄 AppCreator creates integration guide
 5. ⏸️ **WAIT FOR USER:** User tests integration
 
 ### PHASE 6: BDD TESTING & QA
-**DevForge Actions:**
+**AppCreator Actions:**
 1. ✅ Generate Cucumber/Gherkin feature files
 2. ✅ Generate step definitions (TypeScript)
 3. ✅ Generate test configuration (cucumber.js)
 4. ✅ Generate test running scripts
 5. 🔄 User runs tests → Reports failures
-6. 🔄 DevForge fixes failing tests
+6. 🔄 AppCreator fixes failing tests
 7. ✅ **FINAL CHECKPOINT** - Project complete!
 
 ### PHASE 7: DEPLOYMENT (Future)
-**DevForge Actions:**
+**AppCreator Actions:**
 1. 🔜 Generate Dockerfile
 2. 🔜 Generate docker-compose.yml
 3. 🔜 Generate CI/CD pipeline (GitHub Actions / GitLab CI)
@@ -210,9 +210,9 @@ ${requirement.acceptanceCriteria.map((ac: string) => `- ${ac}`).join('\n')}
 - Generates continuation prompt for resuming after context loss
 - Saves to:
   - `PROJECT.poml` - human-readable project state
-  - `.devforge/state.json` - full state object
-  - `.devforge/continuation-prompt.txt` - AI resume prompt
-  - `.devforge/checkpoints.json` - checkpoint history
+  - `.appcreator/state.json` - full state object
+  - `.appcreator/continuation-prompt.txt` - AI resume prompt
+  - `.appcreator/checkpoints.json` - checkpoint history
 
 **Testing Needed:**
 - [ ] Complete 25 tasks and verify checkpoint triggers
@@ -256,7 +256,7 @@ my-project/
 │   ├── services/                # Business logic
 │   └── utils/                   # Utilities
 │
-├── .devforge/                   # DevForge state (hidden)
+├── .appcreator/                   # AppCreator state (hidden)
 │   ├── state.json               # Full project state
 │   ├── checkpoints.json         # Checkpoint history
 │   ├── continuation-prompt.txt  # Resume prompt
@@ -326,7 +326,7 @@ my-project/
 
 ### User Experience Goals:
 - User says: "Create a task management app with auth"
-- DevForge:
+- AppCreator:
   1. Asks clarifying questions (5-8)
   2. Generates complete Spec-Kit
   3. Creates backend with API tests
@@ -367,7 +367,7 @@ my-project/
 4. Check for missing type annotations
 
 ### If Checkpoint System Fails:
-1. Check `.devforge/state.json` exists
+1. Check `.appcreator/state.json` exists
 2. Verify POML file is valid
 3. Check continuation prompt is generated
 4. Verify task count triggers checkpoint
@@ -443,7 +443,7 @@ my-project/
 
 ### To Resume After Context Loss:
 1. Read this TODO.md
-2. Read `.devforge/continuation-prompt.txt` from last project
+2. Read `.appcreator/continuation-prompt.txt` from last project
 3. Read PROJECT.poml for current state
 4. Continue from "IN PROGRESS" section
 

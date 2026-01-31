@@ -6,6 +6,7 @@
  */
 
 import { AIAdapter } from '../adapters/ai-adapter.interface.js';
+import { parseJSONWithDefault } from '../utils/json-parser.js';
 
 export interface MatrixQuestion {
   id: string;
@@ -72,15 +73,21 @@ Return ONLY valid JSON array of questions with this structure:
 IMPORTANT: Return ONLY the JSON array, no markdown, no explanation.`;
 
     const response = await this.aiAdapter.generateText(prompt, 2000);
+    return parseJSONWithDefault<MatrixQuestion[]>(response, this.getDefaultQuestions(projectType), 'generateQuestions');
+  }
 
-    // Extract JSON from response
-    const jsonMatch = response.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) {
-      throw new Error('Failed to extract questions from AI response');
-    }
-
-    const questions: MatrixQuestion[] = JSON.parse(jsonMatch[0]);
-    return questions;
+  /**
+   * Get default questions when AI generation fails
+   */
+  private getDefaultQuestions(projectType: string): MatrixQuestion[] {
+    return [
+      { id: 'arch_01', question: 'What overall architecture pattern should we adopt?', type: 'choice', options: ['Monolithic', 'Microservices', 'Serverless', 'Hybrid'], category: 'architecture' },
+      { id: 'tech_01', question: 'Which database solution should we use?', type: 'choice', options: ['PostgreSQL', 'MongoDB', 'MySQL', 'Firebase'], category: 'technology' },
+      { id: 'tech_02', question: 'What frontend framework should we use?', type: 'choice', options: ['React', 'Vue', 'Angular', 'Native'], category: 'technology' },
+      { id: 'feat_01', question: 'How should users authenticate?', type: 'choice', options: ['Email/Password', 'Social Login', 'OAuth2', 'All options'], category: 'feature' },
+      { id: 'deploy_01', question: 'Which cloud provider should we use?', type: 'choice', options: ['AWS', 'Google Cloud', 'Azure', 'Self-hosted'], category: 'deployment' },
+      { id: 'quality_01', question: 'What testing strategy should we implement?', type: 'choice', options: ['Unit tests only', 'Unit + Integration', 'Full coverage with E2E', 'TDD approach'], category: 'quality' }
+    ];
   }
 
   /**
@@ -113,15 +120,22 @@ Return recommendations as a JSON array of strings:
 IMPORTANT: Return ONLY the JSON array, no markdown, no explanation.`;
 
     const response = await this.aiAdapter.generateText(prompt, 1500);
+    return parseJSONWithDefault<string[]>(response, this.getDefaultRecommendations(), 'analyzeAnswers');
+  }
 
-    // Extract JSON from response
-    const jsonMatch = response.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) {
-      throw new Error('Failed to extract recommendations from AI response');
-    }
-
-    const recommendations: string[] = JSON.parse(jsonMatch[0]);
-    return recommendations;
+  /**
+   * Get default recommendations when AI generation fails
+   */
+  private getDefaultRecommendations(): string[] {
+    return [
+      'Use TypeScript for type safety',
+      'Implement comprehensive error handling',
+      'Set up CI/CD pipeline early',
+      'Write unit tests with 80%+ coverage',
+      'Use environment variables for configuration',
+      'Implement logging and monitoring',
+      'Follow security best practices'
+    ];
   }
 
   /**

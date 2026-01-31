@@ -91,7 +91,7 @@ export const WEB_POML = `<poml>
 
   <auto-refresh>
     <enabled>true</enabled>
-    <state-file>.devforge/state.json</state-file>
+    <state-file>.appcreator/state.json</state-file>
   </auto-refresh>
 
 </poml>`;

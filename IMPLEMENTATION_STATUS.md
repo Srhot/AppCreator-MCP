@@ -1,4 +1,4 @@
-# DevForge MCP Server - Implementation Status
+# AppCreator MCP Server - Implementation Status
 
 **Date:** 2025-11-19
 **Status:** ✅ **COMPLETE - READY TO USE**
@@ -11,17 +11,17 @@
 All three AI providers are configured and working:
 
 - ✅ **Claude (Anthropic)** - Sonnet 4
-  - Provider: `devforge-claude`
+  - Provider: `AppCreator-claude`
   - API Key: Configured
   - Status: WORKING ✅
 
 - ✅ **OpenAI (GPT-4o)** - GPT-4o
-  - Provider: `devforge-gpt4`
+  - Provider: `AppCreator-gpt4`
   - API Key: Configured
   - Status: WORKING ✅
 
 - ✅ **Gemini (Google)** - Gemini 2.0 Flash
-  - Provider: `devforge-gemini`
+  - Provider: `AppCreator-gemini`
   - API Key: Configured
   - Model: gemini-2.0-flash
   - Status: WORKING ✅
@@ -46,7 +46,7 @@ All 7 core modules have been implemented:
    - Auto-checkpoint every 20-25 tasks
    - Time-based checkpoint every 15 minutes
    - Generates continuation prompts
-   - Saves to PROJECT.poml, .devforge/state.json
+   - Saves to PROJECT.poml, .appcreator/state.json
 
 4. ✅ **PostmanGenerator** (`src/modules/postman-generator.ts`)
    - Generates Postman collections
@@ -162,7 +162,7 @@ All 7 core modules have been implemented:
 
 ## 🚀 COMPLETE WORKFLOW
 
-DevForge now provides a **complete 6-phase workflow** from idea to deployment:
+AppCreator now provides a **complete 6-phase workflow** from idea to deployment:
 
 ### **PHASE 1: DISCOVERY & PLANNING**
 ```
@@ -170,7 +170,7 @@ User: "I want to build a task management app"
 ↓
 Tool: start_project
 ↓
-DevForge: Generates 5-8 architecture questions
+AppCreator: Generates 5-8 architecture questions
 ↓
 User: Answers questions (REST vs GraphQL, SQL vs NoSQL, etc.)
 ```
@@ -179,13 +179,13 @@ User: Answers questions (REST vs GraphQL, SQL vs NoSQL, etc.)
 ```
 Tool: approve_architecture (with user's answers)
 ↓
-DevForge generates:
+AppCreator generates:
   ✅ docs/CONSTITUTION.md (vision, principles)
   ✅ docs/SPECIFICATION.md (requirements)
   ✅ docs/TECHNICAL_PLAN.md (architecture)
   ✅ docs/TASKS.md (15-25 tasks)
   ✅ PROJECT.poml (context preservation)
-  ✅ .devforge/state.json (workflow state)
+  ✅ .appcreator/state.json (workflow state)
 ```
 
 ### **PHASE 3: BACKEND DEVELOPMENT**
@@ -194,7 +194,7 @@ DevForge generates:
 ↓
 Tool: generate_api_tests
 ↓
-DevForge generates:
+AppCreator generates:
   ✅ postman/collection.json
   ✅ postman/dev.environment.json
   ✅ postman/staging.environment.json
@@ -213,7 +213,7 @@ User: Answers (platform, design style, colors, etc.)
 ↓
 Tool: generate_frontend_prompt (with answers)
 ↓
-DevForge generates:
+AppCreator generates:
   ✅ docs/FRONTEND_PROMPT.md
      - Main comprehensive prompt
      - Component breakdown
@@ -228,13 +228,13 @@ User: Gets complete frontend in minutes!
 ```
 Tool: generate_bdd_tests
 ↓
-DevForge generates:
+AppCreator generates:
   ✅ tests/features/*.feature (Gherkin files)
   ✅ tests/step-definitions/steps.ts
   ✅ cucumber.js or jest.config.js
 ↓
 User: Runs tests, reports failures
-DevForge: Fixes issues
+AppCreator: Fixes issues
 ```
 
 ### **PHASE 6: DEPLOYMENT** (Future)
@@ -249,7 +249,7 @@ DevForge: Fixes issues
 
 ## 🔄 CONTEXT PRESERVATION (THE CORE FEATURE!)
 
-DevForge **never loses context** during development:
+AppCreator **never loses context** during development:
 
 ### Auto-Checkpoint System
 ✅ **Triggers every 20-25 tasks** (automatic via `complete_task` tool)
@@ -260,15 +260,15 @@ DevForge **never loses context** during development:
 When checkpoint triggers:
 ```
 ✅ PROJECT.poml - Human-readable project state
-✅ .devforge/state.json - Full workflow state
-✅ .devforge/continuation-prompt.txt - AI resume prompt
-✅ .devforge/checkpoints.json - Checkpoint history
+✅ .appcreator/state.json - Full workflow state
+✅ .appcreator/continuation-prompt.txt - AI resume prompt
+✅ .appcreator/checkpoints.json - Checkpoint history
 ```
 
 ### Resuming After Context Loss
 If you lose context (new session, timeout, etc.):
 1. Read `TODO.md` - Overall project status
-2. Read `.devforge/continuation-prompt.txt` - Detailed resume prompt
+2. Read `.appcreator/continuation-prompt.txt` - Detailed resume prompt
 3. Read `PROJECT.poml` - Current state
 4. Continue from where you left off!
 
@@ -276,7 +276,7 @@ If you lose context (new session, timeout, etc.):
 
 ## 📁 GENERATED FILE STRUCTURE
 
-When you use DevForge, it creates this structure:
+When you use AppCreator, it creates this structure:
 
 ```
 my-project/
@@ -302,7 +302,7 @@ my-project/
 │   └── step-definitions/
 │       └── steps.ts             # Step implementations
 │
-├── .devforge/                   # DevForge state (hidden)
+├── .appcreator/                   # AppCreator state (hidden)
 │   ├── state.json               # Full workflow state
 │   ├── checkpoints.json         # Checkpoint history
 │   ├── continuation-prompt.txt  # Resume prompt
@@ -321,7 +321,7 @@ my-project/
 ```bash
 # Close Claude Desktop completely
 # Open Claude Desktop again
-# DevForge tools will be available
+# AppCreator tools will be available
 ```
 
 ### Step 2: Start a New Project
@@ -485,7 +485,7 @@ Choose the best AI for each task:
 
 ### If checkpoint system doesn't trigger:
 1. Verify you're using `complete_task` tool
-2. Check `.devforge/state.json` exists
+2. Check `.appcreator/state.json` exists
 3. Verify task counter is incrementing
 4. Check PROJECT.poml is being updated
 
@@ -501,4 +501,4 @@ Choose the best AI for each task:
 **Version:** 2.0.0
 **Last Updated:** 2025-11-19
 
-**The DevForge MCP Server is now a complete AI-powered software factory!** 🚀
+**The AppCreator MCP Server is now a complete AI-powered software factory!** 🚀

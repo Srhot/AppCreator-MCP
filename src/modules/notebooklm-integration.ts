@@ -14,6 +14,7 @@
 import { AIAdapter } from '../adapters/ai-adapter.interface.js';
 import { SpecKit } from './spec-kit.js';
 import { DecisionMatrix } from './decision-matrix.js';
+import { parseJSONWithDefault } from '../utils/json-parser.js';
 
 export interface NotebookSource {
   id: string;
@@ -98,7 +99,7 @@ export class NotebookLMModule {
       throw new Error('NotebookLM MCP server not available. Please configure it first.');
     }
 
-    console.log('📚 Fetching notebooks from NotebookLM...');
+    console.error('📚 Fetching notebooks from NotebookLM...');
 
     // Real MCP call to NotebookLM
     // Note: This assumes NotebookLM MCP server is configured in Claude Desktop
@@ -111,13 +112,13 @@ export class NotebookLMModule {
     try {
       // This would be the actual MCP call pattern
       // In practice, Claude Desktop handles the MCP communication
-      console.log('   → Attempting to fetch notebooks via MCP...');
+      console.error('   → Attempting to fetch notebooks via MCP...');
 
       // Placeholder for actual MCP response
       // Real implementation: Claude Desktop will intercept and call NotebookLM MCP
       return [];
     } catch (error) {
-      console.log('   ⚠️  Could not fetch notebooks, using fallback mode');
+      console.error('   ⚠️  Could not fetch notebooks, using fallback mode');
       return [];
     }
   }
@@ -132,7 +133,7 @@ export class NotebookLMModule {
       throw new Error('NotebookLM MCP server not available.');
     }
 
-    console.log(`📖 Fetching content from notebook: ${notebookName}`);
+    console.error(`📖 Fetching content from notebook: ${notebookName}`);
 
     // Real MCP call to NotebookLM
     // The actual MCP server call will be:
@@ -196,7 +197,7 @@ export class NotebookLMModule {
       throw new Error('NotebookLM MCP server not available.');
     }
 
-    console.log(`🔍 Querying notebook "${notebookName}": ${query.query}`);
+    console.error(`🔍 Querying notebook "${notebookName}": ${query.query}`);
 
     // Real MCP call: notebooklm.ask_question(notebookName, query.query)
     // For now, simulate with AI that references the notebook context
@@ -253,14 +254,14 @@ Answer:`;
     notebookName: string,
     baseRequirements: string[]
   ): Promise<EnrichmentResult> {
-    console.log(`\n🔗 Enriching project with NotebookLM: ${notebookName}`);
+    console.error(`\n🔗 Enriching project with NotebookLM: ${notebookName}`);
 
     // Step 1: Fetch notebook content
     let notebookContent: NotebookContent;
     try {
       notebookContent = await this.fetchNotebookContent(notebookName);
     } catch (error) {
-      console.log('⚠️  Could not fetch notebook content. Falling back to standard generation.');
+      console.error('⚠️  Could not fetch notebook content. Falling back to standard generation.');
       throw error;
     }
 
@@ -275,7 +276,7 @@ Answer:`;
         const answer = await this.queryNotebook(notebookName, { query });
         notebookAnswers.set(query, answer);
       } catch (error) {
-        console.log(`⚠️  Could not query notebook for: ${query}`);
+        console.error(`⚠️  Could not query notebook for: ${query}`);
       }
     }
 
@@ -307,9 +308,9 @@ Answer:`;
       coverageScore: coverage,
     };
 
-    console.log(`✅ Enrichment complete. Coverage: ${coverage.toFixed(1)}%`);
-    console.log(`   - Notebook contributions: ${result.notebookContributions.length}`);
-    console.log(`   - AI-supplemented topics: ${result.missingInformation.length}`);
+    console.error(`✅ Enrichment complete. Coverage: ${coverage.toFixed(1)}%`);
+    console.error(`   - Notebook contributions: ${result.notebookContributions.length}`);
+    console.error(`   - AI-supplemented topics: ${result.missingInformation.length}`);
 
     return result;
   }
@@ -380,7 +381,7 @@ Answer:`;
       return research;
     }
 
-    console.log(`🔬 Generating AI research for ${missingTopics.length} missing topics...`);
+    console.error(`🔬 Generating AI research for ${missingTopics.length} missing topics...`);
 
     for (const topic of missingTopics) {
       const prompt = `Based on the context of a ${projectType} project, provide a detailed answer to this question:
@@ -402,7 +403,7 @@ Return ONLY the answer, no preamble.`;
         const answer = await this.aiAdapter.generateText(prompt, 1000);
         research.set(topic, answer);
       } catch (error) {
-        console.log(`⚠️  Failed to research: ${topic}`);
+        console.error(`⚠️  Failed to research: ${topic}`);
       }
     }
 
@@ -475,13 +476,7 @@ Return ONLY valid JSON.`;
 
     const response = await this.aiAdapter.generateText(prompt, 4000);
 
-    // Parse JSON
-    const jsonMatch = response.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Failed to generate SpecKit from merged content');
-    }
-
-    const specKitData = JSON.parse(jsonMatch[0]);
+    const specKitData = parseJSONWithDefault<any>(response, this.getDefaultSpecKit(projectName), 'mergeIntoSpecKit');
 
     // Add metadata
     specKitData.metadata = {
@@ -492,6 +487,60 @@ Return ONLY valid JSON.`;
     };
 
     return specKitData as SpecKit;
+  }
+
+  /**
+   * Get default SpecKit when JSON parsing fails
+   */
+  private getDefaultSpecKit(projectName: string): any {
+    return {
+      constitution: {
+        projectName,
+        vision: `Build a high-quality ${projectName} application`,
+        principles: ['User-first', 'Clean code', 'Security', 'Performance', 'Testing'],
+        constraints: ['Must be production-ready'],
+        qualityStandards: {
+          code: ['TypeScript strict mode'],
+          testing: ['80% coverage'],
+          documentation: ['API docs'],
+          performance: ['Fast response']
+        },
+        governanceRules: ['Code review required']
+      },
+      specification: {
+        functionalRequirements: [{
+          id: 'FR001',
+          title: 'Core Feature',
+          description: 'Main application feature',
+          priority: 'critical',
+          acceptanceCriteria: ['Feature works']
+        }],
+        nonFunctionalRequirements: [{
+          category: 'performance',
+          requirement: 'Fast response',
+          metric: 'response time',
+          target: '< 200ms'
+        }],
+        dataModel: {
+          entities: [{ name: 'User', fields: [{ name: 'id', type: 'string', required: true }], relationships: [] }]
+        },
+        apiDesign: {
+          endpoints: [{ method: 'GET', path: '/api/health', description: 'Health check', response: '{ status: ok }' }]
+        },
+        userFlows: [{ name: 'Main Flow', steps: ['Start', 'Use app', 'Finish'] }]
+      },
+      technicalPlan: {
+        architecture: { pattern: 'MVC', layers: ['presentation', 'business', 'data'], components: [] },
+        technologyStack: [{ category: 'Backend', technology: 'Node.js', rationale: 'Modern runtime' }],
+        infrastructure: { hosting: 'Cloud', database: 'PostgreSQL', monitoring: 'APM' },
+        securityPlan: { authentication: 'JWT', authorization: 'RBAC', dataProtection: ['TLS'], vulnerabilityMitigation: ['Input validation'] },
+        testingStrategy: { unit: 'Jest', integration: 'Supertest', e2e: 'Playwright', bdd: true, coverage: 80 },
+        deploymentPlan: { cicd: 'GitHub Actions', environments: ['dev', 'prod'], rollbackStrategy: 'Auto rollback' }
+      },
+      tasks: [
+        { id: 'T001', title: 'Setup', description: 'Project setup', type: 'setup', priority: 1, estimatedHours: 4, dependencies: [], acceptanceCriteria: ['Done'] }
+      ]
+    };
   }
 
   /**
@@ -535,7 +584,7 @@ Return ONLY valid JSON.`;
     description: string,
     notebookName: string
   ): Promise<DecisionMatrix> {
-    console.log(`🎯 Enriching decision matrix with notebook: ${notebookName}`);
+    console.error(`🎯 Enriching decision matrix with notebook: ${notebookName}`);
 
     // Query notebook for architecture decisions
     const architectureQuery: NotebookQuery = {
@@ -546,7 +595,7 @@ Return ONLY valid JSON.`;
     try {
       notebookAnswer = await this.queryNotebook(notebookName, architectureQuery);
     } catch (error) {
-      console.log('⚠️  Could not query notebook for architecture decisions');
+      console.error('⚠️  Could not query notebook for architecture decisions');
     }
 
     // Generate decision matrix with notebook context

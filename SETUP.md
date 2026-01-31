@@ -1,6 +1,6 @@
-# DevForge MCP Server - Setup Guide
+# AppCreator MCP Server - Setup Guide
 
-This guide walks you through setting up DevForge with Claude Desktop.
+This guide walks you through setting up AppCreator with Claude Desktop.
 
 ## Prerequisites
 
@@ -8,11 +8,11 @@ This guide walks you through setting up DevForge with Claude Desktop.
 - npm or yarn
 - Claude Desktop application
 
-## Step 1: Install DevForge
+## Step 1: Install AppCreator
 
 ```bash
 # Navigate to the project directory
-cd devforge-mcp-server
+cd appcreator-mcp-server
 
 # Install dependencies
 npm install
@@ -30,14 +30,14 @@ npm run build
    %APPDATA%\Claude\claude_desktop_config.json
    ```
 
-2. Add DevForge to the configuration:
+2. Add AppCreator to the configuration:
    ```json
    {
      "mcpServers": {
-       "devforge": {
+       "AppCreator": {
          "command": "node",
          "args": [
-           "C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\build\\index.js"
+           "C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"
          ]
        }
      }
@@ -51,14 +51,14 @@ npm run build
    ~/Library/Application Support/Claude/claude_desktop_config.json
    ```
 
-2. Add DevForge to the configuration:
+2. Add AppCreator to the configuration:
    ```json
    {
      "mcpServers": {
-       "devforge": {
+       "AppCreator": {
          "command": "node",
          "args": [
-           "/absolute/path/to/devforge-mcp-server/build/index.js"
+           "/absolute/path/to/appcreator-mcp-server/build/index.js"
          ]
        }
      }
@@ -69,7 +69,7 @@ npm run build
 
 1. Quit Claude Desktop completely
 2. Restart Claude Desktop
-3. You should see DevForge tools available in the MCP section
+3. You should see AppCreator tools available in the MCP section
 
 ## Step 4: Verify Installation
 
@@ -93,11 +93,11 @@ For development and testing, you can use the development server:
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "npx",
       "args": [
         "tsx",
-        "C:\\Users\\serha\\OneDrive\\Desktop\\devforge-mcp-server\\src\\index.ts"
+        "C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\src\\index.ts"
       ]
     }
   }
@@ -183,8 +183,8 @@ const projectPath = path.join('/custom/path', name);
 Create a `.env` file for configuration:
 
 ```env
-DEVFORGE_PROJECT_ROOT=/path/to/projects
-DEVFORGE_AUTO_REFRESH_INTERVAL=3600000
+AppCreator_PROJECT_ROOT=/path/to/projects
+AppCreator_AUTO_REFRESH_INTERVAL=3600000
 ```
 
 ### Logging
@@ -194,7 +194,7 @@ Enable debug logging by setting the environment variable:
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "node",
       "args": ["build/index.js"],
       "env": {
@@ -261,10 +261,10 @@ If you encounter issues:
 
 ## Updates
 
-To update DevForge:
+To update AppCreator:
 
 ```bash
-cd devforge-mcp-server
+cd appcreator-mcp-server
 git pull  # If using git
 npm install
 npm run build
@@ -274,4 +274,4 @@ Then restart Claude Desktop.
 
 ---
 
-You're now ready to use DevForge as your AI Software Factory!
+You're now ready to use AppCreator as your AI Software Factory!

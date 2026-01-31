@@ -1,4 +1,4 @@
-# DevForge v2.0 - Comprehensive Usage Guide
+# AppCreator v2.0 - Comprehensive Usage Guide
 
 **Complete AI-Powered Software Factory with Context Preservation**
 
@@ -6,7 +6,7 @@
 
 ## 📚 Table of Contents
 
-1. [Understanding DevForge & Claude Desktop](#understanding-devforge--claude-desktop)
+1. [Understanding AppCreator & Claude Desktop](#understanding-AppCreator--claude-desktop)
 2. [How AI Providers Work](#how-ai-providers-work)
 3. [Complete Workflow (6 Phases)](#complete-workflow-6-phases)
 4. [Available Tools](#available-tools)
@@ -17,11 +17,11 @@
 
 ---
 
-## 🤖 Understanding DevForge & Claude Desktop
+## 🤖 Understanding AppCreator & Claude Desktop
 
-### What is DevForge?
+### What is AppCreator?
 
-DevForge is **not a chatbot** - it's an **MCP (Model Context Protocol) server** that provides specialized tools to Claude Desktop.
+AppCreator is **not a chatbot** - it's an **MCP (Model Context Protocol) server** that provides specialized tools to Claude Desktop.
 
 ### The Architecture
 
@@ -31,17 +31,17 @@ DevForge is **not a chatbot** - it's an **MCP (Model Context Protocol) server** 
 │  (Anthropic's AI - Your Claude Pro subscription)           │
 │                                                             │
 │  You chat here normally with Claude                        │
-│  But when you ask to use DevForge tools...                 │
+│  But when you ask to use AppCreator tools...                 │
 └────────────────────┬────────────────────────────────────────┘
                      │
                      │ MCP Protocol
                      │
 ┌────────────────────▼────────────────────────────────────────┐
-│              DEVFORGE MCP SERVERS                           │
+│              AppCreator MCP SERVERS                           │
 │  (3 separate servers in background)                        │
 │                                                             │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │  devforge-  │  │  devforge-  │  │  devforge-  │        │
+│  │  AppCreator-  │  │  AppCreator-  │  │  AppCreator-  │        │
 │  │   claude    │  │    gpt4     │  │   gemini    │        │
 │  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘        │
 │         │                │                │                │
@@ -64,8 +64,8 @@ DevForge is **not a chatbot** - it's an **MCP (Model Context Protocol) server** 
 - **Claude Pro aboneliğin** burada geçerlidir
 - MCP araçlarını kullanmadığın sürece, **tamamen normal Claude'dur**
 
-**2. DevForge MCP Servers (Background)**
-- Arka planda çalışan **3 ayrı sunucu**: devforge-claude, devforge-gpt4, devforge-gemini
+**2. AppCreator MCP Servers (Background)**
+- Arka planda çalışan **3 ayrı sunucu**: AppCreator-claude, AppCreator-gpt4, AppCreator-gemini
 - **Sadece araç çağrıldığında** aktive olurlar
 - Her biri **farklı AI sağlayıcısına** bağlıdır
 - **Kendi API key'lerini kullanırlar** (senin verdiğin)
@@ -73,7 +73,7 @@ DevForge is **not a chatbot** - it's an **MCP (Model Context Protocol) server** 
 **3. How They Work Together**
 
 ```
-Senaryo 1: Normal Sohbet (DevForge kullanmıyorsun)
+Senaryo 1: Normal Sohbet (AppCreator kullanmıyorsun)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Sen: "Merhaba, bana React hakkında bilgi ver"
 ↓
@@ -83,13 +83,13 @@ Kullanılan: Claude Pro aboneliğin (Anthropic)
 Cost: Abonelik dahilinde
 
 
-Senaryo 2: DevForge Aracı Kullanıyorsun
+Senaryo 2: AppCreator Aracı Kullanıyorsun
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Sen: "DevForge'un start_project aracını kullanarak bir web sitesi oluştur"
+Sen: "AppCreator'un start_project aracını kullanarak bir web sitesi oluştur"
 ↓
 Claude Desktop: [Aracı çağırır]
     ↓
-    DevForge MCP Server (devforge-gemini): [Çalışır]
+    AppCreator MCP Server (AppCreator-gemini): [Çalışır]
         ↓
         Gemini API: [Spec-Kit üretir]
         ↓
@@ -108,9 +108,9 @@ Claude Desktop: [Sonucu sana gösterir]
 | Who | What | When | Cost |
 |-----|------|------|------|
 | **Claude Desktop (Anthropic)** | Normal sohbet, araç çağırma | Her zaman | Pro abonelik |
-| **devforge-claude API** | Spec-Kit, BDD üretimi | Araç çağrıldığında | Senin Claude API keyin |
-| **devforge-gpt4 API** | Spec-Kit, BDD üretimi | Araç çağrıldığında | Senin OpenAI API keyin |
-| **devforge-gemini API** | Spec-Kit, BDD üretimi | Araç çağrıldığında | Senin Gemini API keyin |
+| **AppCreator-claude API** | Spec-Kit, BDD üretimi | Araç çağrıldığında | Senin Claude API keyin |
+| **AppCreator-gpt4 API** | Spec-Kit, BDD üretimi | Araç çağrıldığında | Senin OpenAI API keyin |
+| **AppCreator-gemini API** | Spec-Kit, BDD üretimi | Araç çağrıldığında | Senin Gemini API keyin |
 
 ### Which Claude is Which?
 
@@ -121,7 +121,7 @@ Claude Desktop: [Sonucu sana gösterir]
    - MCP araçlarını yönetir
    - Her zaman aktif
 
-2. **devforge-claude API** = Arka planda çalışan tool
+2. **AppCreator-claude API** = Arka planda çalışan tool
    - **Sadece araç çağrıldığında** çalışır
    - **Senin Claude API keyin** (sk-ant-api03-...) kullanılır
    - Spec-Kit, Postman, BDD üretir
@@ -130,20 +130,20 @@ Claude Desktop: [Sonucu sana gösterir]
 ### Cost Breakdown
 
 ```
-Normal Kullanım (DevForge yok):
+Normal Kullanım (AppCreator yok):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Sen: "React component nasıl yazılır?"
 → Claude Desktop cevap verir
 → Cost: $0 (Pro abonelik dahilinde)
 
 
-DevForge ile Proje Oluşturma:
+AppCreator ile Proje Oluşturma:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Sen: "DevForge start_project aracını kullan"
+Sen: "AppCreator start_project aracını kullan"
 ↓
 Claude Desktop: Aracı çağırır (ücretsiz)
 ↓
-DevForge-Gemini: Spec-Kit üretir
+AppCreator-Gemini: Spec-Kit üretir
 → Cost: ~$0.01 (Gemini API)
 ↓
 Claude Desktop: Sonucu gösterir (ücretsiz)
@@ -155,13 +155,13 @@ TOPLAM COST: ~$0.01 (sadece araç kullanımı)
 
 ## 🚀 Complete Workflow (6 Phases)
 
-DevForge şimdi **tam bir software factory**! İşte 6 aşamalı iş akışı:
+AppCreator şimdi **tam bir software factory**! İşte 6 aşamalı iş akışı:
 
 ### PHASE 1: Discovery & Planning
 
 **Ne Olur:**
 1. Proje fikrini söylersin
-2. DevForge **5-8 mimari karar sorusu** sorar
+2. AppCreator **5-8 mimari karar sorusu** sorar
 3. Sen cevapları verirsin
 4. Mimariyi onaylarsın
 
@@ -170,14 +170,14 @@ DevForge şimdi **tam bir software factory**! İşte 6 aşamalı iş akışı:
 ```
 Sen Claude Desktop'ta:
 ━━━━━━━━━━━━━━━━━━
-"DevForge'un start_project aracını kullanarak bir Taşınmaz Takip Sistemi web sitesi oluştur"
+"AppCreator'un start_project aracını kullanarak bir Taşınmaz Takip Sistemi web sitesi oluştur"
 
 Claude Desktop (Anthropic AI) cevap verir:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-"Tabii! DevForge ile proje oluşturalım."
+"Tabii! AppCreator ile proje oluşturalım."
 [start_project aracını çağırır]
     ↓
-    devforge-gemini çalışır:
+    AppCreator-gemini çalışır:
     ↓
     Gemini API: Karar matrisi üretir
 
@@ -211,7 +211,7 @@ Sen cevapları verirsin:
 
 **Ne Olur:**
 1. Cevaplarını onaylarsın
-2. DevForge **tam Spec-Kit üretir**:
+2. AppCreator **tam Spec-Kit üretir**:
    - Constitution (proje ilkeleri)
    - Specification (detaylı gereksinimler)
    - Technical Plan (mimari)
@@ -229,7 +229,7 @@ Claude Desktop:
 ━━━━━━━━━━━━━━━
 [approve_architecture aracını çağırır]
     ↓
-    devforge-gemini:
+    AppCreator-gemini:
     ↓
     - Constitution oluşturur
     - Specification oluşturur
@@ -246,14 +246,14 @@ Claude Desktop sonuçları gösterir:
    - docs/TECHNICAL_PLAN.md
    - docs/TASKS.md
    - PROJECT.poml
-   - .devforge/state.json"
+   - .appcreator/state.json"
 ```
 
 ### PHASE 3: Backend Development & API Testing
 
 **Ne Olur:**
 1. Backend kodunu yazarsın (manuel veya Claude Desktop ile)
-2. DevForge **Postman collections üretir**
+2. AppCreator **Postman collections üretir**
 3. API'leri test edersin (Postman veya Newman)
 4. Sorunları raporlarsın
 
@@ -262,13 +262,13 @@ Claude Desktop sonuçları gösterir:
 ```
 Sen:
 ━━━━
-"Backend tamamlandı. DevForge'un generate_api_tests aracını kullanarak API testleri oluştur"
+"Backend tamamlandı. AppCreator'un generate_api_tests aracını kullanarak API testleri oluştur"
 
 Claude Desktop:
 ━━━━━━━━━━━━━━━
 [generate_api_tests aracını çağırır]
     ↓
-    devforge-gemini:
+    AppCreator-gemini:
     ↓
     - Postman collection oluşturur
     - Environments oluşturur (dev, staging, prod)
@@ -287,9 +287,9 @@ newman run postman/collection.json -e postman/dev.environment.json"
 ### PHASE 4: Frontend Development
 
 **Ne Olur:**
-1. DevForge frontend tercihleri sorar
+1. AppCreator frontend tercihleri sorar
 2. Sen platform, renk, stil seçersin
-3. DevForge **comprehensive prompt üretir**
+3. AppCreator **comprehensive prompt üretir**
 4. Google Stitch/Lovable/v0'a yapıştırırsın
 5. Dakikalar içinde frontend hazır!
 
@@ -318,7 +318,7 @@ Claude Desktop:
 ━━━━━━━━━━━━━━━
 [generate_frontend_prompt aracını çağırır]
     ↓
-    devforge-gemini:
+    AppCreator-gemini:
     ↓
     - Comprehensive prompt üretir
     - Component breakdown
@@ -335,7 +335,7 @@ Frontend otomatik oluşacak."
 ### PHASE 5: BDD Testing
 
 **Ne Olur:**
-1. DevForge **Cucumber/Gherkin testleri** üretir
+1. AppCreator **Cucumber/Gherkin testleri** üretir
 2. Feature files (.feature)
 3. Step definitions (TypeScript)
 4. Test configuration
@@ -351,7 +351,7 @@ Claude Desktop:
 ━━━━━━━━━━━━━━━
 [generate_bdd_tests aracını çağırır]
     ↓
-    devforge-gemini:
+    AppCreator-gemini:
     ↓
     - Feature files üretir
     - Step definitions üretir
@@ -397,13 +397,13 @@ Claude Desktop:
 ━━━━━━━━━━━━━━━
 [complete_task aracını çağırır]
     ↓
-    devforge-gemini:
+    AppCreator-gemini:
     ↓
     ⚠️ AUTO-CHECKPOINT TRIGGERED! ⚠️
     ↓
     - PROJECT.poml güncellenir
-    - .devforge/state.json güncellenir
-    - .devforge/continuation-prompt.txt oluşturulur
+    - .appcreator/state.json güncellenir
+    - .appcreator/continuation-prompt.txt oluşturulur
 ↓
 "✅ Task T020 tamamlandı! (20/20)
 💾 CHECKPOINT OLUŞTURULDU!
@@ -414,19 +414,19 @@ Claude Desktop:
 
 ## 🛠️ Available Tools
 
-DevForge v2.0'da **9 araç** var:
+AppCreator v2.0'da **9 araç** var:
 
 ### 1. start_project
 **Ne Yapar:** Proje başlatır, karar matrisi üretir
 
 **Nasıl Kullanılır:**
 ```
-"DevForge'un start_project aracını kullanarak bir [proje açıklaması] oluştur"
+"AppCreator'un start_project aracını kullanarak bir [proje açıklaması] oluştur"
 ```
 
 **Örnek:**
 ```
-"DevForge'un start_project aracını kullanarak bir e-ticaret sitesi oluştur"
+"AppCreator'un start_project aracını kullanarak bir e-ticaret sitesi oluştur"
 ```
 
 **Çıktı:**
@@ -450,7 +450,7 @@ DevForge v2.0'da **9 araç** var:
 - docs/TECHNICAL_PLAN.md
 - docs/TASKS.md
 - PROJECT.poml
-- .devforge/state.json
+- .appcreator/state.json
 
 ---
 
@@ -461,7 +461,7 @@ DevForge v2.0'da **9 araç** var:
 ```
 "API testleri oluştur"
 veya
-"DevForge'un generate_api_tests aracını kullan"
+"AppCreator'un generate_api_tests aracını kullan"
 ```
 
 **Çıktı:**
@@ -532,8 +532,8 @@ veya
 
 **Çıktı:**
 - PROJECT.poml güncellenir
-- .devforge/state.json güncellenir
-- .devforge/continuation-prompt.txt oluşturulur
+- .appcreator/state.json güncellenir
+- .appcreator/continuation-prompt.txt oluşturulur
 
 ---
 
@@ -576,7 +576,7 @@ veya
 ```
 Claude Desktop'ta yaz:
 ━━━━━━━━━━━━━━━━━━━━━
-"DevForge-Gemini'nin start_project aracını kullanarak bir e-ticaret sitesi oluştur.
+"AppCreator-Gemini'nin start_project aracını kullanarak bir e-ticaret sitesi oluştur.
 
 Özellikler:
 - Ürün katalog
@@ -641,7 +641,7 @@ Dosyalar:
 - docs/TECHNICAL_PLAN.md (mimari + tech stack)
 - docs/TASKS.md (22 task)
 - PROJECT.poml (context preservation)
-- .devforge/state.json
+- .appcreator/state.json
 
 22 task planlandı:
 T001: Project setup
@@ -658,7 +658,7 @@ Sen (normal Claude ile):
 ━━━━━━━━━━━━━━━━━━━━
 "docs/TASKS.md dosyasına göre backend kodunu yaz"
 
-[Claude Desktop normal şekilde kod yazar - DevForge kullanmaz]
+[Claude Desktop normal şekilde kod yazar - AppCreator kullanmaz]
 ```
 
 **STEP 5: API Tests**
@@ -767,9 +767,9 @@ Sen:
 - Production-ready mimari
 
 ```
-"DevForge-Claude'un start_project aracını kullanarak bir blog sitesi oluştur"
+"AppCreator-Claude'un start_project aracını kullanarak bir blog sitesi oluştur"
 
-[Aynı workflow, ama devforge-claude API kullanılır]
+[Aynı workflow, ama AppCreator-claude API kullanılır]
 
 Cost: ~$0.50 (Gemini: ~$0.01)
 Quality: Daha yüksek
@@ -780,9 +780,9 @@ Quality: Daha yüksek
 ### Example 3: CLI Tool (GPT-4o)
 
 ```
-"DevForge-GPT4'ün start_project aracını kullanarak bir file organizer CLI tool oluştur"
+"AppCreator-GPT4'ün start_project aracını kullanarak bir file organizer CLI tool oluştur"
 
-[Aynı workflow, ama devforge-gpt4 API kullanılır]
+[Aynı workflow, ama AppCreator-gpt4 API kullanılır]
 
 Cost: ~$0.60 (Gemini: ~$0.01)
 Reliability: Çok güvenilir
@@ -813,13 +813,13 @@ Reliability: Çok güvenilir
 
 ```
 Testing/Learning:
-→ devforge-gemini (free tier!)
+→ AppCreator-gemini (free tier!)
 
 Production/Important:
-→ devforge-claude (best quality)
+→ AppCreator-claude (best quality)
 
 Enterprise/Reliable:
-→ devforge-gpt4 (proven track record)
+→ AppCreator-gpt4 (proven track record)
 ```
 
 ---
@@ -837,9 +837,9 @@ Kontrol et:
 ```
 Claude Desktop → Ayarlar → Developer → MCP Servers
 Görmeli:
-- devforge-claude
-- devforge-gpt4
-- devforge-gemini
+- AppCreator-claude
+- AppCreator-gpt4
+- AppCreator-gemini
 ```
 
 ---
@@ -856,8 +856,8 @@ Görmeli:
 
 **Doğru:**
 ```
-"DevForge'un start_project aracını kullanarak bir web sitesi oluştur"
-→ DevForge araç çalışır
+"AppCreator'un start_project aracını kullanarak bir web sitesi oluştur"
+→ AppCreator araç çalışır
 ```
 
 ---
@@ -875,16 +875,16 @@ Claude Desktop (Anthropic AI): Cevap verir
 ↓
 Kullanılan: Claude Pro aboneliğin
 Cost: $0 (abonelik dahilinde)
-DevForge: Kullanılmadı
+AppCreator: Kullanılmadı
 
 
-SENARYO 2: DevForge Aracı
+SENARYO 2: AppCreator Aracı
 ━━━━━━━━━━━━━━━━━━━━━━━━━
-Sen: "DevForge-Gemini start_project kullan"
+Sen: "AppCreator-Gemini start_project kullan"
 ↓
 Claude Desktop: Aracı çağırır
     ↓
-    devforge-gemini MCP server: Çalışır
+    AppCreator-gemini MCP server: Çalışır
         ↓
         Gemini API: Spec üretir
         ↓
@@ -924,14 +924,14 @@ C:\Users\serha\AppData\Roaming\Claude\claude_desktop_config.json
 
 **Çözüm:**
 
-DevForge **otomatik checkpoint** yapıyor:
+AppCreator **otomatik checkpoint** yapıyor:
 - Her 20 task'te
 - Manuel: `create_checkpoint` aracı
 
 Eğer context kaybettiysen:
 ```
 1. Oku: TODO.md
-2. Oku: .devforge/continuation-prompt.txt
+2. Oku: .appcreator/continuation-prompt.txt
 3. Oku: PROJECT.poml
 4. Claude'a göster: "Bu prompttan devam et"
 ```
@@ -940,13 +940,13 @@ Eğer context kaybettiysen:
 
 ## ❓ FAQ
 
-### Q1: DevForge kullanmazken Claude Pro aboneliğim mi kullanılır?
+### Q1: AppCreator kullanmazken Claude Pro aboneliğim mi kullanılır?
 
-**A:** Evet! Normal sohbette her zaman Claude Pro aboneliğin kullanılır. DevForge sadece **araç çağırdığında** kendi API key'lerini kullanır.
+**A:** Evet! Normal sohbette her zaman Claude Pro aboneliğin kullanılır. AppCreator sadece **araç çağırdığında** kendi API key'lerini kullanır.
 
 ---
 
-### Q2: DevForge aracını kullandığımda hem Claude Pro hem API key mi harcanır?
+### Q2: AppCreator aracını kullandığımda hem Claude Pro hem API key mi harcanır?
 
 **A:**
 ```
@@ -954,7 +954,7 @@ Claude Desktop (Anthropic):
 - Aracı çağırır: Abonelik dahilinde (ücretsiz)
 - Sonucu gösterir: Abonelik dahilinde (ücretsiz)
 
-DevForge API (Gemini/Claude/GPT):
+AppCreator API (Gemini/Claude/GPT):
 - Spec üretir: API key kullanır (ücretli)
 
 TOPLAM: Sadece araç kullanımı ücretli
@@ -967,13 +967,13 @@ TOPLAM: Sadece araç kullanımı ücretli
 **A:**
 ```
 Öğreniyorum / Test ediyorum:
-→ devforge-gemini (free tier!)
+→ AppCreator-gemini (free tier!)
 
 Önemli proje / Production:
-→ devforge-claude (en kaliteli)
+→ AppCreator-claude (en kaliteli)
 
 Kurumsal / Güvenilir olmalı:
-→ devforge-gpt4
+→ AppCreator-gpt4
 
 Para önemli değil:
 → Her biri için ayrı dene, karşılaştır
@@ -992,8 +992,8 @@ Task 1-19: Normal çalışma
 Task 20: ⚠️ AUTO-CHECKPOINT!
     ↓
     PROJECT.poml → Güncellenir
-    .devforge/state.json → Kaydedilir
-    .devforge/continuation-prompt.txt → Oluşturulur
+    .appcreator/state.json → Kaydedilir
+    .appcreator/continuation-prompt.txt → Oluşturulur
 
 Yeni session başladığında:
     ↓
@@ -1044,7 +1044,7 @@ Bu sayede context kaybolsa bile **tüm bilgi korunur**!
 
 **A:**
 
-DevForge şunları üretir:
+AppCreator şunları üretir:
 ```
 docs/FRONTEND_PROMPT.md:
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -1083,7 +1083,7 @@ Claude Desktop (Anthropic):
 - Workflow organize eder
 - Pro aboneliğin burada
 
-DevForge API Keys:
+AppCreator API Keys:
 ━━━━━━━━━━━━━━━━━━
 - Spec-Kit üretir
 - BDD testleri üretir
@@ -1122,7 +1122,7 @@ API = Worker (üretici)
 
 ## 📊 Summary
 
-### DevForge v2.0 Nedir?
+### AppCreator v2.0 Nedir?
 
 **Tam bir AI Software Factory:**
 
@@ -1140,7 +1140,7 @@ API = Worker (üretici)
 
 ```
 1. Claude Desktop'ı aç
-2. "DevForge-Gemini start_project kullan" de
+2. "AppCreator-Gemini start_project kullan" de
 3. Karar sorularını cevapla
 4. Spec-Kit oluşsun
 5. Backend yaz (Claude Desktop ile)
@@ -1155,13 +1155,13 @@ API = Worker (üretici)
 
 ```
 Prototype/Test:
-→ devforge-gemini (free!)
+→ AppCreator-gemini (free!)
 
 Production:
-→ devforge-claude (kalite)
+→ AppCreator-claude (kalite)
 
 Enterprise:
-→ devforge-gpt4 (güvenilir)
+→ AppCreator-gpt4 (güvenilir)
 ```
 
 ---
@@ -1174,7 +1174,7 @@ Enterprise:
 
 2. **İlk projeyi oluştur:**
 ```
-"DevForge-Gemini'nin start_project aracını kullanarak bir [proje fikri] oluştur"
+"AppCreator-Gemini'nin start_project aracını kullanarak bir [proje fikri] oluştur"
 ```
 
 3. **Karar sorularını cevapla**
@@ -1185,7 +1185,7 @@ Enterprise:
 
 ---
 
-**DevForge v2.0 - Never Lose Context, Always Build Better!** 🚀
+**AppCreator v2.0 - Never Lose Context, Always Build Better!** 🚀
 
 *Last Updated: 2025-11-19*
 *Version: 2.0.0*
@@ -1195,7 +1195,7 @@ Enterprise:
 
 ** Sisteme Sorulan soru ve ardından alınan cevaplar
  Şimdi burada merak ettiğim husus şu: been klavuzun tamamını okudum. Bu klavuza göre proje oluşturmak istediğimde
-devforge klasörü içinde yeni bi yeni proje oluşturuluyor demi? Rehberde spec kit dosyaları oluşturulduktan sonra
+AppCreator klasörü içinde yeni bi yeni proje oluşturuluyor demi? Rehberde spec kit dosyaları oluşturulduktan sonra
 backend dosyalarının claude desktop ile oluşturulmasına ilişkin bişeyler yazmışsın. Bunun yerine ben Spec kit
 dosyaları vs oluşturuldukan sonra bunu claude code ile açsam ve orada backend işlemi gerçekleştirildikten sonra
 yine
@@ -1207,12 +1207,12 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
 
   📁 Proje Nereye Oluşturulur?
 
-  HAYIR! DevForge klasörü içine değil - sen nerede istersen oraya oluşturur!
+  HAYIR! AppCreator klasörü içine değil - sen nerede istersen oraya oluşturur!
 
   Örnek:
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Claude Desktop'ta:
-  "C:\Users\serha\Projects\ dizininde DevForge start_project
+  "C:\Users\serha\Projects\ dizininde AppCreator start_project
   aracını kullanarak bir e-ticaret sitesi oluştur"
 
   Sonuç:
@@ -1230,10 +1230,10 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
 
   Önerilen Hibrit Workflow:
 
-  1️⃣ PHASE 1-2: Claude Desktop (DevForge)
+  1️⃣ PHASE 1-2: Claude Desktop (AppCreator)
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Claude Desktop:
-  "DevForge start_project kullan"
+  "AppCreator start_project kullan"
   → Karar matrisi
   → Spec-Kit oluşturulur
   → docs/ klasörü hazır
@@ -1246,7 +1246,7 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
   │   ├── TECHNICAL_PLAN.md
   │   └── TASKS.md
   ├── PROJECT.poml
-  └── .devforge/
+  └── .appcreator/
 
 
   2️⃣ PHASE 3: Claude Code (Backend Development)
@@ -1268,7 +1268,7 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Claude Desktop:
   "C:\Users\serha\Projects\my-project dizininde
-  DevForge generate_api_tests aracını kullan"
+  AppCreator generate_api_tests aracını kullan"
 
   → postman/ klasörü oluşturulur
   → API testleri hazır
@@ -1303,7 +1303,7 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
 
   ┌──────────────────────────────────────────────────┐
   │  PHASE 1-2: Planning & Spec                     │
-  │  Tool: Claude Desktop + DevForge MCP             │
+  │  Tool: Claude Desktop + AppCreator MCP             │
   │  ───────────────────────────────────────────────│
   │  • start_project → Decision matrix              │
   │  • approve_architecture → Spec-Kit              │
@@ -1323,7 +1323,7 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
                       ↓
   ┌──────────────────────────────────────────────────┐
   │  PHASE 4: API Testing                           │
-  │  Tool: Claude Desktop + DevForge MCP             │
+  │  Tool: Claude Desktop + AppCreator MCP             │
   │  ───────────────────────────────────────────────│
   │  • generate_api_tests → Postman collections    │
   │  • Newman testleri çalıştır                    │
@@ -1339,7 +1339,7 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
                       ↓
   ┌──────────────────────────────────────────────────┐
   │  PHASE 6: Frontend & BDD                        │
-  │  Tool: Claude Desktop + DevForge MCP             │
+  │  Tool: Claude Desktop + AppCreator MCP             │
   │  ───────────────────────────────────────────────│
   │  • generate_frontend_prompt                    │
   │  • generate_bdd_tests                          │
@@ -1352,10 +1352,10 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
 
   Adım 1: Claude Desktop (5 dakika)
   Sen:
-  "C:\Users\serha\Projects\ dizininde DevForge-Gemini
+  "C:\Users\serha\Projects\ dizininde AppCreator-Gemini
   start_project aracını kullanarak bir e-ticaret sitesi oluştur"
 
-  DevForge:
+  AppCreator:
   → Karar matrisi soruları
   → Sen cevapla
   → Spec-Kit oluşturulur
@@ -1396,7 +1396,7 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
   Adım 3: Claude Desktop (2 dakika)
   Claude Desktop:
   "C:\Users\serha\Projects\e-commerce-site dizininde
-  DevForge generate_api_tests aracını kullan"
+  AppCreator generate_api_tests aracını kullan"
 
   → postman/ klasörü oluşturulur
   → 15 endpoint test hazır
@@ -1426,36 +1426,36 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
   ✅ Yapabileceklerin:
 
   1. Proje nereye olursa olsun oluşturabilirsin
-    - DevForge klasörü içine DEĞİL
+    - AppCreator klasörü içine DEĞİL
     - İstediğin dizine!
   2. Claude Code ile backend yazabilirsin (EN İYİ YÖNTEM!)
-    - DevForge Spec-Kit oluşturur
+    - AppCreator Spec-Kit oluşturur
     - Claude Code backend yazar
-    - DevForge API testleri oluşturur
+    - AppCreator API testleri oluşturur
   3. İkisini birlikte kullanabilirsin (HİBRİT)
-    - Planning: Claude Desktop + DevForge
+    - Planning: Claude Desktop + AppCreator
     - Development: Claude Code
-    - Testing/Frontend: Claude Desktop + DevForge
+    - Testing/Frontend: Claude Desktop + AppCreator
 
   ❌ Yapamayacakların:
 
   1. VS Code'a MCP entegrasyonu YOK
     - Sadece Claude Desktop destekliyor
     - Ama Claude Code (terminal) kullanabilirsin!
-  2. DevForge ile backend kodu yazamazsın
-    - DevForge sadece planning/testing tools
+  2. AppCreator ile backend kodu yazamazsın
+    - AppCreator sadece planning/testing tools
     - Kod yazmak için Claude Code kullan
 
   ---
   🚀 En İyi Workflow (Önerim)
 
-  1. Claude Desktop → DevForge start_project
+  1. Claude Desktop → AppCreator start_project
      (Spec-Kit oluştur - 5 dakika)
 
   2. Claude Code → Backend geliştirme
      (Kod yaz - 2-3 saat)
 
-  3. Claude Desktop → DevForge generate_api_tests
+  3. Claude Desktop → AppCreator generate_api_tests
      (Test oluştur - 2 dakika)
 
   4. Terminal → Newman testleri çalıştır
@@ -1464,13 +1464,13 @@ claude code vs kullanarak projeyi ayağa kaldırabilme durumum mümkün mü?
   5. Claude Code → Hataları düzelt
      (Bug fix - 1 saat)
 
-  6. Claude Desktop → DevForge generate_frontend_prompt
+  6. Claude Desktop → AppCreator generate_frontend_prompt
      (Frontend prompt - 2 dakika)
 
   7. Lovable → Frontend oluştur
      (Prompt yapıştır - 10 dakika)
 
-  8. Claude Desktop → DevForge generate_bdd_tests
+  8. Claude Desktop → AppCreator generate_bdd_tests
      (BDD testleri - 2 dakika)
 
   TOPLAM: ~4-5 saat tam proje!

@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to DevForge MCP Server will be documented in this file.
+All notable changes to AppCreator MCP Server will be documented in this file.
 
 ## [1.0.0] - 2025-01-17
 
@@ -14,7 +14,7 @@ All notable changes to DevForge MCP Server will be documented in this file.
   - Dependency configuration
 
 - **Auto-Refresh System**: Critical feature to prevent context loss
-  - State saving to `.devforge/state.json`
+  - State saving to `.appcreator/state.json`
   - Continuation prompt generation
   - Seamless session resumption
   - Full context preservation
@@ -63,7 +63,7 @@ All notable changes to DevForge MCP Server will be documented in this file.
 
 #### Project Structure
 ```
-devforge-mcp-server/
+appcreator-mcp-server/
 ├── src/
 │   └── index.ts          # Main MCP server
 ├── build/                # Compiled output
@@ -125,7 +125,7 @@ Not applicable - this is the initial release.
 
 ## Contributing
 
-To contribute to DevForge:
+To contribute to AppCreator:
 
 1. Fork the repository
 2. Create a feature branch
@@ -136,7 +136,7 @@ To contribute to DevForge:
 
 ### Version Numbering
 
-DevForge follows Semantic Versioning (SemVer):
+AppCreator follows Semantic Versioning (SemVer):
 - **MAJOR**: Breaking changes
 - **MINOR**: New features (backward compatible)
 - **PATCH**: Bug fixes (backward compatible)

@@ -79,7 +79,7 @@ export class TemplateEngine {
     this.templates.set('project.poml', PROJECT_POML);
 
     if (this.options.verbose) {
-      console.log(`Loaded ${this.templates.size} templates`);
+      console.error(`Loaded ${this.templates.size} templates`);
     }
   }
 
@@ -108,8 +108,8 @@ export class TemplateEngine {
     }
 
     if (this.options.verbose) {
-      console.log(`Rendering template: ${templateName}`);
-      console.log('Variables:', Object.keys(variables).join(', '));
+      console.error(`Rendering template: ${templateName}`);
+      console.error('Variables:', Object.keys(variables).join(', '));
     }
 
     // Process template through rendering pipeline
@@ -335,7 +335,7 @@ export class TemplateEngine {
     this.templates.set(name, template);
 
     if (this.options.verbose) {
-      console.log(`Registered custom template: ${name}`);
+      console.error(`Registered custom template: ${name}`);
     }
   }
 
@@ -346,7 +346,7 @@ export class TemplateEngine {
     const result = this.templates.delete(name);
 
     if (this.options.verbose && result) {
-      console.log(`Unregistered template: ${name}`);
+      console.error(`Unregistered template: ${name}`);
     }
 
     return result;
@@ -467,7 +467,7 @@ export class TemplateEngine {
     this.templates.clear();
 
     if (this.options.verbose) {
-      console.log('Cleared all templates');
+      console.error('Cleared all templates');
     }
   }
 
@@ -479,7 +479,7 @@ export class TemplateEngine {
     this.loadTemplates();
 
     if (this.options.verbose) {
-      console.log('Reloaded all templates');
+      console.error('Reloaded all templates');
     }
   }
 }

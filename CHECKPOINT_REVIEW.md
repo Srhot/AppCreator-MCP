@@ -563,19 +563,19 @@ No action items. All checks passed!
 
 ---
 
-## Integration with DevForge
+## Integration with AppCreator
 
 ### Automatic Trigger
 
 ```typescript
-// In main DevForge server
+// In main AppCreator server
 import {
   CheckpointReviewManager,
   renderCheckpointReviewPOML,
   createDefaultProjectChecks
 } from './templates/poml/index.js';
 
-class DevForgeServer {
+class AppCreatorServer {
   private checkpointManagers: Map<string, CheckpointReviewManager> = new Map();
 
   private async checkAndRunCheckpoint(projectName: string, state: ProjectState) {

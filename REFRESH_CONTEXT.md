@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Refresh Context Template** is the **MOST CRITICAL** component of DevForge's context preservation system. It automatically reloads project context every 20 tasks to prevent context loss and ensure development continuity.
+The **Refresh Context Template** is the **MOST CRITICAL** component of AppCreator's context preservation system. It automatically reloads project context every 20 tasks to prevent context loss and ensure development continuity.
 
 ## Why This Is Critical
 
@@ -337,7 +337,7 @@ Task 40    → TRIGGER: Auto-refresh
 
 ## Integration Example
 
-### In DevForge Server
+### In AppCreator Server
 
 ```typescript
 import {
@@ -348,7 +348,7 @@ import {
   createDefaultMemoryAnchors
 } from './templates/poml/index.js';
 
-class DevForgeServer {
+class AppCreatorServer {
   private anchorManagers: Map<string, MemoryAnchorManager> = new Map();
 
   private shouldTriggerRefresh(completedTasks: number): boolean {
@@ -529,7 +529,7 @@ No warnings or blockers detected.
 
 ---
 
-**CRITICAL IMPORTANCE:** This template is the cornerstone of DevForge's context preservation system. Without it, long development sessions would suffer from context drift and loss of critical project knowledge.
+**CRITICAL IMPORTANCE:** This template is the cornerstone of AppCreator's context preservation system. Without it, long development sessions would suffer from context drift and loss of critical project knowledge.
 
 ---
 

@@ -1,8 +1,8 @@
-# DevForge MCP Server - Project Summary
+# AppCreator MCP Server - Project Summary
 
 ## Overview
 
-**DevForge** is a fully functional MCP (Model Context Protocol) server that acts as an AI Software Factory. It integrates with Claude Desktop to provide automated project generation and management capabilities.
+**AppCreator** is a fully functional MCP (Model Context Protocol) server that acts as an AI Software Factory. It integrates with Claude Desktop to provide automated project generation and management capabilities.
 
 ## What's Been Created
 
@@ -17,7 +17,7 @@
 
 2. **Project Structure**
    ```
-   devforge-mcp-server/
+   appcreator-mcp-server/
    ├── src/
    │   └── index.ts              # Main server implementation
    ├── build/
@@ -54,7 +54,7 @@
   - Saves complete project state
   - Prevents context loss
   - Generates continuation prompts
-  - Stores state in `.devforge/state.json`
+  - Stores state in `.appcreator/state.json`
   - Enables seamless session resumption
 
 #### 3. Progress Tracking
@@ -259,7 +259,7 @@ Every project gets:
 
 User: "Create a web app called 'taskmaster' with React and TypeScript"
 
-DevForge:
+AppCreator:
 1. Creates folder structure
 2. Generates files
 3. Configures package.json
@@ -269,7 +269,7 @@ DevForge:
 
 User: "Get the status"
 
-DevForge:
+AppCreator:
 - Shows progress: 5/35 tasks
 - Current phase: setup
 - Next steps listed
@@ -277,8 +277,8 @@ DevForge:
 
 User: "Use auto-refresh"
 
-DevForge:
-- Saves state to .devforge/state.json
+AppCreator:
+- Saves state to .appcreator/state.json
 - Updates PROJECT.poml
 - Generates continuation prompt
 - Ready to resume anytime
@@ -290,9 +290,9 @@ DevForge:
 ```json
 {
   "mcpServers": {
-    "devforge": {
+    "AppCreator": {
       "command": "node",
-      "args": ["path/to/devforge-mcp-server/build/index.js"]
+      "args": ["path/to/appcreator-mcp-server/build/index.js"]
     }
   }
 }
@@ -360,7 +360,7 @@ Potential additions (not implemented yet):
 
 ## Conclusion
 
-DevForge MCP Server is **production-ready** with:
+AppCreator MCP Server is **production-ready** with:
 
 - ✅ Complete implementation of all core features
 - ✅ Comprehensive documentation

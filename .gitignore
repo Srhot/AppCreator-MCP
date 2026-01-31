@@ -21,3 +21,5 @@ final-*.js
 list-*.js
 tmpclaude-*
 .claude/settings.local.json
+.mcp.json
+nul
