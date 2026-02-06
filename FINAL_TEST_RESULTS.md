@@ -188,7 +188,7 @@ Your `claude_desktop_config.json` now has:
       "args": ["C:\\Users\\serha\\OneDrive\\Desktop\\appcreator-mcp-server\\build\\index.js"],
       "env": {
         "AI_PROVIDER": "gemini",
-        "AI_API_KEY": "AIzaSyAHbjQLuc3CMiJ9xo302x-aqeFcqzSmh68",
+        "AI_API_KEY": "AIz...",
         "AI_MODEL": "gemini-2.0-flash"
       }
     }
