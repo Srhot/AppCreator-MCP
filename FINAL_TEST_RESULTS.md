@@ -61,7 +61,7 @@ Google now has **Gemini 2.0** and **Gemini 2.5** models:
 ```json
 {
   "AI_PROVIDER": "gemini",
-  "AI_API_KEY": "AIzaSyAHbjQLuc3CMiJ9xo302x-aqeFcqzSmh68",
+  "AI_API_KEY": "AIz....",
   "AI_MODEL": "gemini-2.0-flash"
 }
 ```
