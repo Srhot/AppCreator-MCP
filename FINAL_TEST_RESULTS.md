@@ -37,7 +37,7 @@
 ## ✅ Gemini - WORKING (FIXED!)
 
 **Model:** `gemini-2.0-flash`
-**API Key:** `AIzaSyAHbjQLuc3CMiJ9xo302x-aqeFcqzSmh68`
+**API Key:** `AIz...`
 **Test Response:** "Hello from Gemini 2.0 Flash via AppCreator!"
 
 ### What Was The Problem?
@@ -118,7 +118,7 @@ constructor(apiKey: string, modelName: string = 'gemini-2.0-flash') {
   "AppCreator-gemini": {
     "env": {
       "AI_PROVIDER": "gemini",
-      "AI_API_KEY": "AIzaSyAHbjQLuc3CMiJ9xo302x-aqeFcqzSmh68",  // New key
+      "AI_API_KEY": "AIz...",  // New key
       "AI_MODEL": "gemini-2.0-flash"  // New model
     }
   }
